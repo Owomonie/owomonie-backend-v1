@@ -30,7 +30,8 @@ export const handleLogin = async (
     }
 
     const isMatch =
-      foundUser.password && bcrypt.compare(password, foundUser.password);
+      foundUser.password &&
+      (await bcrypt.compare(password, foundUser.password));
 
     if (!isMatch) {
       res.status(400).json({ success: false, message: "Invalid Password" });
