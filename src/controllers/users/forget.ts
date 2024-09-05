@@ -29,7 +29,7 @@ export const handleForgetPasswordVerification = async (
     const foundUser = await UserModel.findOne({ email }).exec();
 
     if (!foundUser) {
-      res.status(409).json({ success: false, message: "Email Not Found" });
+      res.status(404).json({ success: false, message: "Email Not Found" });
       return;
     }
 
@@ -83,7 +83,7 @@ export const handleForgetVerifyOTP = async (
     const foundUser = await UserModel.findOne({ email }).exec();
 
     if (!foundUser) {
-      res.status(409).json({ success: false, message: "Email Not Found" });
+      res.status(404).json({ success: false, message: "Email Not Found" });
       return;
     }
     if (
@@ -137,7 +137,7 @@ export const handleResetPassword = async (
     const foundUser = await UserModel.findOne({ email }).exec();
 
     if (!foundUser) {
-      res.status(401).json({ success: false, message: "Email Not Found" });
+      res.status(404).json({ success: false, message: "Email Not Found" });
       return;
     }
 

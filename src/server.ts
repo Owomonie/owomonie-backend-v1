@@ -40,8 +40,7 @@ app.use(cookieParser());
 app.use(logger);
 
 app.get("/", (_req, res) => {
-  res.send(`<!-- index.html -->
-<!DOCTYPE html>
+  res.send(`<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
