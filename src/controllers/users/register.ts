@@ -37,6 +37,16 @@ export const handleRegisterNewUser = async (
     return;
   }
 
+  const minUsernameLength = 4;
+
+  if (userName.length < minUsernameLength) {
+    res.status(400).json({
+      success: false,
+      message: `Username Too short`,
+    });
+    return;
+  }
+
   try {
     if (foundUser.status === 1 && foundUser.email === email) {
       res

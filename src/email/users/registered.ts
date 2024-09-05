@@ -9,7 +9,7 @@ const RegistrationSuccessfulMessage = ({
 }) => {
   sendMessage({
     email,
-    html: `<p>Hello ${userName},Congratulations! Your registration with owomonie is successful</p>`,
+    html: `<p>Hello ${userName}, Congratulations! Your registration with owomonie is successful</p>`,
     subject: "Owomonie Registration Successful",
   });
 };

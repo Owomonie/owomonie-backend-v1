@@ -174,3 +174,12 @@
 20240903	14:39:53	cb12bd92-49fa-4493-aabd-66c74cf1398d	GET	undefined	/
 20240903	14:43:28	e2bd628d-cc22-4e85-a743-557c3b66508b	GET	undefined	/
 20240903	14:43:47	66aed803-becc-44f4-bde0-777a5f8a7d09	GET	undefined	/
+20240905	15:05:00	107841e9-328f-4f2b-8873-db62f9dc203a	PATCH	undefined	/register-user
+20240905	15:05:48	b9f18c28-1367-49a3-aeca-8482dee8862a	PATCH	undefined	/register-user
+20240905	15:09:04	4b48e22f-030f-444d-89aa-542e1f5ea619	POST	undefined	/new-user-verification
+20240905	15:10:24	f86089e2-d8d2-44bd-8d8a-73409df16b67	POST	undefined	/new-user-verification/verify-otp
+20240905	15:10:48	9cd537d3-aa6c-4db0-828c-891bd835b382	PATCH	undefined	/register-user
+20240905	15:13:47	00ea0162-2e0e-41c0-bb6e-2189ea717717	PATCH	undefined	/register-user
+20240905	15:43:51	f6b0308d-2544-4df1-a4aa-798fafb65322	PATCH	undefined	/register-user
+20240905	15:44:17	86e5c34d-a53e-4892-aef3-fc2540b471f0	PATCH	undefined	/register-user
+20240905	15:44:50	26ac6c05-b2ac-4eff-b4c2-c70dc8aa469d	PATCH	undefined	/register-user
