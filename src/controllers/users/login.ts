@@ -25,7 +25,7 @@ export const handleLogin = async (
     const foundUser = await UserModel.findOne({ email }).exec();
 
     if (!foundUser) {
-      res.status(400).json({ success: false, message: "Unregistered Email" });
+      res.status(401).json({ success: false, message: "Unregistered Email" });
       return;
     }
 

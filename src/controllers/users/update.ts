@@ -29,7 +29,7 @@ export const handleUpdateGender = async (
 
     await foundUser.save();
 
-    res.status(200).json({ success: true, messge: "Gender Updated" });
+    res.status(200).json({ success: true, message: "Gender Updated" });
   } catch (error) {
     res.status(500).json({ success: false, message: "Server Error" });
   }
@@ -63,7 +63,7 @@ export const handleUpdateAgeRange = async (
 
     await foundUser.save();
 
-    res.status(200).json({ success: true, messge: "Age Range Updated" });
+    res.status(200).json({ success: true, message: "Age Range Updated" });
   } catch (error) {
     res.status(500).json({ success: false, message: "Server Error" });
   }
@@ -97,7 +97,7 @@ export const handleUpdateWorkType = async (
 
     await foundUser.save();
 
-    res.status(200).json({ success: true, messge: "Work Type Updated" });
+    res.status(200).json({ success: true, message: "Work Type Updated" });
   } catch (error) {
     res.status(500).json({ success: false, message: "Server Error" });
   }
@@ -131,7 +131,7 @@ export const handleUpdateIncomeRange = async (
 
     await foundUser.save();
 
-    res.status(200).json({ success: true, messge: "Income Range Updated" });
+    res.status(200).json({ success: true, message: "Income Range Updated" });
   } catch (error) {
     res.status(500).json({ success: false, message: "Server Error" });
   }
