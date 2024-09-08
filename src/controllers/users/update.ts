@@ -147,10 +147,11 @@ export const handleUpdateAvatar = async (
 
     //@ts-ignore
     const file = req.file;
+    const { avatarNum } = req.body;
 
     const foundUser = await UserModel.findById(userId).exec();
 
-    if (!file) {
+    if (!file && !avatarNum) {
       res.status(400).json({ success: false, message: "Image is required" });
       return;
     }
@@ -160,10 +161,14 @@ export const handleUpdateAvatar = async (
       return;
     }
 
-    const response =
-      foundUser.userName && (await uploadAvatar(file, foundUser?.userName));
+    if (file) {
+      const response =
+        foundUser.userName && (await uploadAvatar(file, foundUser?.userName));
 
-    foundUser.avatar = response;
+      foundUser.avatar = response;
+    } else {
+      foundUser.avatar = avatarNum;
+    }
 
     await foundUser.save();
 
