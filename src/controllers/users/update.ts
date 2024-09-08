@@ -172,7 +172,7 @@ export const handleUpdateAvatar = async (
 
     await foundUser.save();
 
-    res.status(200).json({ success: true, message: `Profile Picture Updated` });
+    res.status(200).json({ success: true, message: `Avatar Updated` });
   } catch (error) {
     res.status(500).json({ success: false, message: "Server Error" });
   }
