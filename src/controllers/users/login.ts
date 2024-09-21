@@ -42,6 +42,7 @@ export const handleLogin = async (
     const payload = {
       userId: foundUser._id,
       email: foundUser.email,
+      isAdmin: foundUser.isAdmin,
     };
 
     // Generate a JWT token

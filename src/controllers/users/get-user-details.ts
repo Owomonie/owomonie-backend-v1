@@ -20,6 +20,7 @@ export const handleGetUserDetails = async (
     const {
       password,
       resettingPassword,
+      isAdmin,
       otp,
       otpExpiry,
       __v,

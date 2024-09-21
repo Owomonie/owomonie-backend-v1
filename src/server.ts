@@ -9,6 +9,7 @@ import {
   deleteUnregisteredUsers,
 } from "./controllers/users/delete-users";
 import {
+  createBank,
   userDetailsRoute,
   userForgetPassword,
   userLoginRoute,
@@ -16,7 +17,7 @@ import {
   userUpdate,
   userVerificationRoute,
 } from "./routes";
-import { errorEvent, logger, verifyAuth } from "./middlewares";
+import { errorEvent, logger, verifyAdmin, verifyAuth } from "./middlewares";
 import { connectDB } from "./config";
 import multerErrorHandler from "./middlewares/multerError";
 
@@ -82,6 +83,9 @@ app.use("/forget-password", userForgetPassword);
 app.use(verifyAuth);
 app.use("/get-user-details", userDetailsRoute);
 app.use("/update", userUpdate);
+
+app.use(verifyAdmin);
+app.use("/bank", createBank);
 
 app.use(multerErrorHandler);
 app.use(errorEvent);

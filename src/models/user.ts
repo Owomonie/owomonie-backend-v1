@@ -12,6 +12,7 @@ interface IUserSchema extends Document {
   otp?: string;
   otpExpiry?: Date;
   resettingPassword?: boolean;
+  isAdmin: boolean;
   gender?: string;
   ageRange?: string;
   workType?: string;
@@ -48,6 +49,8 @@ const userSchema = new Schema<IUserSchema>({
     type: Number,
     default: 0,
   },
+
+  isAdmin: { type: Boolean, default: false },
 
   password: {
     type: String,
