@@ -9,7 +9,8 @@ import {
   deleteUnregisteredUsers,
 } from "./controllers/users/delete-users";
 import {
-  createBank,
+  bank,
+  banks,
   userDetailsRoute,
   userForgetPassword,
   userLoginRoute,
@@ -83,9 +84,10 @@ app.use("/forget-password", userForgetPassword);
 app.use(verifyAuth);
 app.use("/get-user-details", userDetailsRoute);
 app.use("/update", userUpdate);
+app.use("/banks", banks);
 
 app.use(verifyAdmin);
-app.use("/bank", createBank);
+app.use("/bank", bank);
 
 app.use(multerErrorHandler);
 app.use(errorEvent);
