@@ -12,7 +12,6 @@ interface File {
 
 export const uploadBankLogo = async (
   file: File,
-  bankname: string,
   bankSortCode: string
 ): Promise<string> => {
   const s3Client = new S3Client({
@@ -25,7 +24,7 @@ export const uploadBankLogo = async (
 
   const param = {
     Bucket: process.env.AWS_BUCKET_NAME,
-    Key: `banks/${uuid()}-${bankname}-${bankSortCode}-${file.originalname}`,
+    Key: `banks/${uuid()}-${bankSortCode}-${file.originalname}`,
     Body: file.buffer,
   };
 

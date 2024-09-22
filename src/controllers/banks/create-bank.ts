@@ -35,8 +35,7 @@ export const handleCreateNewBank = async (
       return;
     }
 
-    const bankLogo =
-      file && (await uploadBankLogo(file, bankName, bankSortCode));
+    const bankLogo = file && (await uploadBankLogo(file, bankSortCode));
 
     await BankModel.create({
       bankName,
