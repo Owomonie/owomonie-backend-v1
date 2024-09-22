@@ -1,6 +1,7 @@
 import { Request, Router } from "express";
 import multer, { FileFilterCallback, MulterError } from "multer";
 import { handleCreateNewBank } from "../../controllers/banks/create-bank";
+import { handleDeleteBank } from "../../controllers/banks/delete-bank";
 
 const bankRouter = Router();
 
@@ -32,5 +33,6 @@ const upload = multer({
 });
 
 bankRouter.post("/add", upload.single("bank-logo"), handleCreateNewBank);
+bankRouter.delete("/delete/:bankId", handleDeleteBank);
 
 export default bankRouter;

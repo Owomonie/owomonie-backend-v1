@@ -1,4 +1,8 @@
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import {
+  S3Client,
+  PutObjectCommand,
+  DeleteObjectCommand,
+} from "@aws-sdk/client-s3";
 import { v4 as uuid } from "uuid";
 
 interface File {
@@ -33,6 +37,30 @@ export const uploadBankLogo = async (
     return url;
   } catch (err) {
     console.error("Error uploading bank logo:", err);
+    throw err;
+  }
+};
+
+export const deleteBankLogo = async (logoKey: string): Promise<void> => {
+  const s3Client = new S3Client({
+    region: process.env.AWS_REGION,
+  });
+
+  if (!process.env.AWS_BUCKET_NAME) {
+    throw new Error("AWS_BUCKET_NAME is not defined");
+  }
+
+  const params = {
+    Bucket: process.env.AWS_BUCKET_NAME,
+    Key: logoKey,
+  };
+
+  try {
+    const command = new DeleteObjectCommand(params);
+    await s3Client.send(command);
+    console.log(`Successfully deleted logo: ${logoKey}`);
+  } catch (err) {
+    console.error("Error deleting bank logo:", err);
     throw err;
   }
 };

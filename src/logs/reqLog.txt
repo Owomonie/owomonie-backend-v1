@@ -271,3 +271,8 @@
 20240922	08:02:20	d2254eef-7450-4984-a6ef-b22f0f0cd3cc	GET	undefined	/banks
 20240922	08:02:53	f4120368-3df5-4fe4-9a34-d0fc81fb94ee	GET	undefined	/banks
 20240922	08:03:03	c14d5582-3b15-4247-8636-76135bff84c3	GET	undefined	/banks
+20240922	08:18:09	fe430e46-d801-42d7-96ad-06ff91473d22	DELETE	undefined	/bank/delete/66efbe2c4153feb544f8d494
+20240922	08:18:21	e94c7393-3443-49c8-b6c3-d4c08653fc0f	DELETE	undefined	/bank/delete/66efbe2c4153feb544f8d494
+20240922	08:20:31	934f3be3-5064-4a3a-a4d8-9f83af81f77b	DELETE	undefined	/bank/delete/66efbe2c4153feb544f8d494
+20240922	08:23:09	5f054113-59a7-4713-b8c9-b699fde6630a	DELETE	undefined	/bank/delete/66efbe2c4153feb544f8d494
+20240922	08:23:21	11829c35-ba03-4725-892a-bd45ff31ad78	GET	undefined	/banks
