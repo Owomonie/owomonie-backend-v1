@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cron from "node-cron";
+import cors from "cors";
 
 import {
   deleteOTP,
@@ -21,6 +22,7 @@ import {
 import { errorEvent, logger, verifyAdmin, verifyAuth } from "./middlewares";
 import { connectDB } from "./config";
 import multerErrorHandler from "./middlewares/multerError";
+import corsOptions from "./config/corsOption";
 
 dotenv.config();
 
@@ -36,6 +38,8 @@ connectDB();
 
 cron.schedule("0 0 * * *", deleteUnregisteredUsers);
 cron.schedule("0 0 * * *", deleteOTP);
+
+app.use(cors(corsOptions));
 
 app.use(cookieParser());
 
