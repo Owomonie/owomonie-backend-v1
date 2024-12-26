@@ -1,8 +1,7 @@
 const allowedOrigins = [
-  "http://localhost:19006",
-  // "http://localhost:5173",
-  // "http://localhost:8081",
-  // "exp://192.168.179.251:8081",
+  "exp://192.168.1.10:19000",
+  " exp://192.168.179.251:8081",
+  "http://localhost:19000",
   "https://owomonie-admin-v1.vercel.app",
 ];
 
