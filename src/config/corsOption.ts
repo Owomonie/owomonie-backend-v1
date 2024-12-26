@@ -15,6 +15,7 @@ const isAllowedOrigin = (origin: string | undefined): boolean => {
 const corsOptions: CorsOptions = {
   origin: (origin, callback) => {
     if (!origin || !isAllowedOrigin(origin)) {
+      console.log(origin);
       // Reject requests with disallowed origins
       callback(new Error("Not allowed by CORS"));
     } else {
