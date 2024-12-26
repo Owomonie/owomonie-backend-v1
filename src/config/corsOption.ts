@@ -1,7 +1,8 @@
 const allowedOrigins = [
   "http://localhost:5173",
   "https://owomonie-admin-v1.vercel.app",
-  "https://expo.dev/accounts/yommexg/projects/owomonie/builds/689ffa0a-a3b9-4a8c-a0e3-ba54d5e23ede",
+  "http://localhost:8081",
+  "exp://1192.168.179.251:8081",
 ];
 
 import { CorsOptions } from "cors";
