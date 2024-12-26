@@ -1,7 +1,7 @@
 const allowedOrigins = [
   "http://localhost:5173",
   "https://owomonie-admin-v1.vercel.app",
-  "exp://192.168.179.251:19000",
+  (origin: string) => origin && origin.startsWith("exp://"),
 ];
 
 import { CorsOptions } from "cors";
