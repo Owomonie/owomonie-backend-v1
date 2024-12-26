@@ -380,3 +380,7 @@
 20241020	14:12:22	2663788e-6b24-4b2f-bbdd-a4b23082777e	GET	http://localhost:5173	/get-user-details
 20241020	14:13:12	cf922752-f3fe-4678-9956-7ef46589c5f1	GET	http://localhost:5173	/get-user-details
 20241020	14:13:12	463218a5-6937-4d31-b822-18e36deefa55	GET	http://localhost:5173	/get-user-details
+20241226	08:24:52	1d82a02e-e465-48b7-8c5d-33f49f5550c1	GET	undefined	/
+20241226	09:33:34	6cbd959a-b090-423a-ad58-03713d2de0a6	GET	undefined	/
+20241226	09:33:57	5b64bcfa-d73e-4c6f-9a7a-141af7c5530a	GET	undefined	/
+20241226	09:36:34	a9a3e7c8-6c6f-474f-b499-36b7adf2c18a	GET	undefined	/
