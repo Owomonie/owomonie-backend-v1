@@ -17,6 +17,7 @@ interface IUserSchema extends Document {
   ageRange?: string;
   workType?: string;
   incomeRange?: string;
+  pushToken?: string;
 }
 
 const userSchema = new Schema<IUserSchema>({
@@ -73,6 +74,10 @@ const userSchema = new Schema<IUserSchema>({
   },
 
   incomeRange: {
+    type: String,
+  },
+
+  pushToken: {
     type: String,
   },
 

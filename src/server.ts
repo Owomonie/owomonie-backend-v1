@@ -18,6 +18,7 @@ import {
   userRegisterRoute,
   userUpdate,
   userVerificationRoute,
+  notification,
 } from "./routes";
 import { errorEvent, logger, verifyAdmin, verifyAuth } from "./middlewares";
 import { connectDB } from "./config";
@@ -89,6 +90,7 @@ app.use(verifyAuth);
 app.use("/get-user-details", userDetailsRoute);
 app.use("/update", userUpdate);
 app.use("/banks", banks);
+app.use("/notifications", notification);
 
 app.use(verifyAdmin);
 app.use("/bank", bank);

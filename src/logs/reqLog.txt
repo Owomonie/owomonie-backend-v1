@@ -384,3 +384,12 @@
 20241226	09:33:34	6cbd959a-b090-423a-ad58-03713d2de0a6	GET	undefined	/
 20241226	09:33:57	5b64bcfa-d73e-4c6f-9a7a-141af7c5530a	GET	undefined	/
 20241226	09:36:34	a9a3e7c8-6c6f-474f-b499-36b7adf2c18a	GET	undefined	/
+20241228	07:42:36	3f505ba0-61d8-421c-84dc-b8c0fd5def81	PATCH	undefined	/
+20241228	07:43:03	8fb09550-fb76-4082-b86a-251628df00b0	GET	undefined	/
+20241228	07:45:22	4dc7e23e-1502-4fcc-b22d-455e9083118c	GET	undefined	/login
+20241228	07:45:32	830a9a52-871f-473b-8e6f-85a3aac395a6	POST	undefined	/login
+20241228	07:46:33	40dd9588-7527-4350-ab87-d0f4f5c7f179	GET	undefined	/notification/save-push-token
+20241228	07:46:43	d41e063e-c3fe-4f3f-b0f4-6fff29137f7b	PATCH	undefined	/notification/save-push-token
+20241228	07:47:04	b2b51a47-b2c9-441a-8f76-21f501907cc7	PATCH	undefined	/notifications/save-push-token
+20241228	07:50:39	cf3007b4-8b66-46f8-b7f9-cd5c8556a9c5	PATCH	undefined	/notifications/save-push-token
+20241228	07:51:09	81a04da6-5a97-494a-b66b-b60e477d6499	PATCH	undefined	/notifications/save-push-token

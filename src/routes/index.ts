@@ -6,3 +6,4 @@ export { default as userForgetPassword } from "./users/forget";
 export { default as userUpdate } from "./users/update";
 export { default as bank } from "./admin/bank";
 export { default as banks } from "./users/get-banks";
+export { default as notification } from "./users/notification";
