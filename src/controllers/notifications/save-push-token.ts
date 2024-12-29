@@ -9,7 +9,7 @@ export const handleUnauthenticatedSavePushToken = async (
 ): Promise<void> => {
   const { pushToken } = req.body;
 
-  const expoPushTokenRegex = /^ExponentPushToken\[([A-Za-z0-9]{20,})\]$/;
+  const expoPushTokenRegex = /^ExponentPushToken\[(.*?)\]$/;
 
   try {
     const foundPushToken = await PushTokenModel.findOne({ pushToken }).exec();
@@ -43,7 +43,7 @@ export const handleSavePushToken = async (
 ): Promise<void> => {
   const { pushToken } = req.body;
 
-  const expoPushTokenRegex = /^ExponentPushToken\[([A-Za-z0-9]{20,})\]$/;
+  const expoPushTokenRegex = /^ExponentPushToken\[(.*?)\]$/;
 
   try {
     //@ts-ignore
