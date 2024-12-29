@@ -41,6 +41,8 @@ export const handleLogin = async (
 
     foundUser.lastLogin = new Date();
 
+    const formattedLastLogin = foundUser.lastLogin.toLocaleString();
+
     // Create a token payload
     const payload = {
       userId: foundUser._id,
@@ -51,16 +53,12 @@ export const handleLogin = async (
     // Generate a JWT token
     const token = jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRATION });
 
-    const pushData = {
-      lastLogin: foundUser.lastLogin,
-    };
-
     // If the user has a push token, send the push notification
     if (foundUser.pushToken) {
       await sendPushNotification(
         [foundUser.pushToken],
-        "Login successful!",
-        pushData
+        `Hello ${foundUser.firstName}, Your account was logged in at ${formattedLastLogin}`,
+        {}
       );
     }
 
