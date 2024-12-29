@@ -1,31 +1,38 @@
-import { Request, Response } from "express";
-import { expo, isExpoPushToken } from "../../config/expo-push-notification";
+import { Expo } from "expo-server-sdk";
 
-export const handleSendMessage = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
-  const somePushTokens = ["ExponentPushToken[VxDLpnGDN_ZsoxPf5ejdRr]"];
+let expo = new Expo({
+  accessToken: process.env.EXPO_ACCESS_TOKEN,
+  useFcmV1: true,
+});
 
-  if (!somePushTokens || somePushTokens.length === 0) {
-    res.status(400).send("No push tokens provided.");
-    return;
+export const sendPushNotification = async (
+  pushTokens: string[],
+  body: string,
+  data: any
+): Promise<any> => {
+  if (!pushTokens || pushTokens.length === 0) {
+    throw new Error("No push tokens provided.");
+  }
+
+  if (!body) {
+    throw new Error("Message Body is required");
   }
 
   let messages = [];
 
-  // Validate push tokens
-  for (let pushToken of somePushTokens) {
-    if (!isExpoPushToken(pushToken)) {
-      console.error(`Push token ${pushToken} is not valid`);
+  for (let pushToken of pushTokens) {
+    if (!Expo.isExpoPushToken(pushToken)) {
+      console.error(`Push token ${pushToken} is not a valid Expo push token`);
       continue;
     }
 
     messages.push({
       to: pushToken,
       sound: "default",
-      body: "This is a test notification",
-      data: { withSome: "data" },
+      body,
+      data: {
+        data,
+      },
     });
   }
 
@@ -41,8 +48,7 @@ export const handleSendMessage = async (
     }
   } catch (error) {
     console.error("Error sending push notifications:", error);
-    res.status(500).send("Error sending push notifications.");
-    return;
+    throw new Error("Error sending push notifications.");
   }
 
   let receiptIds = tickets
@@ -58,26 +64,20 @@ export const handleSendMessage = async (
       console.log("Receipts:", receipts);
 
       for (let receiptId in receipts) {
-        //@ts-ignore
-        let { status, message, details } = receipts[receiptId];
+        const { status, details } = receipts[receiptId];
         if (status === "ok") continue;
-
-        console.error(`Error sending notification: ${message}`);
-        //@ts-ignore
         if (details && details.error) {
-          //@ts-ignore
           console.error(`Error code: ${details.error}`);
         }
       }
     }
   } catch (error) {
     console.error("Error retrieving receipts:", error);
-    res.status(500).send("Error retrieving receipts.");
-    return;
+    throw new Error("Error retrieving receipts.");
   }
 
-  res.status(200).send({
+  return {
     message: "Notifications sent successfully.",
     tickets: tickets,
-  });
+  };
 };

@@ -18,6 +18,7 @@ interface IUserSchema extends Document {
   workType?: string;
   incomeRange?: string;
   pushToken?: string;
+  lastLogin?: Date;
 }
 
 const userSchema = new Schema<IUserSchema>({
@@ -82,6 +83,8 @@ const userSchema = new Schema<IUserSchema>({
   },
 
   createdAt: { type: Date, default: Date.now },
+
+  lastLogin: { type: Date, default: null },
 });
 
 const UserModel = mongoose.model<IUserSchema>("User", userSchema);

@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 import UserModel from "../../models/user";
+import { sendPushNotification } from "../../expo-push-notification/notification";
 
 const JWT_SECRET = process.env.JWT_SECRET!;
 
@@ -38,6 +39,8 @@ export const handleLogin = async (
       return;
     }
 
+    foundUser.lastLogin = new Date();
+
     // Create a token payload
     const payload = {
       userId: foundUser._id,
@@ -47,6 +50,19 @@ export const handleLogin = async (
 
     // Generate a JWT token
     const token = jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRATION });
+
+    const pushData = {
+      lastLogin: foundUser.lastLogin,
+    };
+
+    // If the user has a push token, send the push notification
+    if (foundUser.pushToken) {
+      await sendPushNotification(
+        [foundUser.pushToken],
+        "Login successful!",
+        pushData
+      );
+    }
 
     res.status(200).json({
       success: true,
