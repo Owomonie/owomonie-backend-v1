@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { handleUnauthenticatedSavePushToken } from "../../controllers/notifications/save-push-token";
-import { handleSendMesaage } from "../../controllers/notifications/send-message";
+import { handleSendMessage } from "../../controllers/notifications/send-message";
 
 const unauthNotificationRouter = Router();
 
@@ -9,6 +9,6 @@ unauthNotificationRouter.post(
   handleUnauthenticatedSavePushToken
 );
 
-unauthNotificationRouter.post("/message", handleSendMesaage);
+unauthNotificationRouter.post("/message", handleSendMessage);
 
 export default unauthNotificationRouter;
