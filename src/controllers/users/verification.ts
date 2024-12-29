@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import UserModel from "../../models/user";
 import OtpModel from "../../models/otp";
 import NewVerificationMessage from "../../email/users/new-verification";
+import { sendPushNotification } from "../../expo-push-notification/notification";
 
 // Handle new user verification and OTP generation
 export const handleNewUserVerification = async (
@@ -78,7 +79,7 @@ export const handleOTPRequest = async (
   req: Request,
   res: Response
 ): Promise<void> => {
-  const { OTP, email } = req.body;
+  const { OTP, email, pushToken } = req.body;
 
   if (!req.cookies) {
     res.status(400).json({ success: false, message: "No cookie Availiable" });
@@ -119,6 +120,14 @@ export const handleOTPRequest = async (
     await UserModel.create({ email });
 
     await OtpModel.deleteOne({ sessionId });
+
+    if (pushToken !== null || !pushToken) {
+      await sendPushNotification(
+        [pushToken],
+        `Verification Successful!! You can now register`,
+        {}
+      );
+    }
 
     res.status(201).json({
       success: true,
