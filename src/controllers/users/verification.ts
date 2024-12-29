@@ -123,9 +123,9 @@ export const handleOTPRequest = async (
 
     if (pushToken !== null || !pushToken) {
       await sendPushNotification({
-        body: "Verification Successful!! You can now register",
+        body: "You can now register to use full features of app",
         pushTokens: [pushToken],
-        title: "Verify User",
+        title: "Verification Successful",
       });
     }
 
