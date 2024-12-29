@@ -5,7 +5,7 @@ export const handleSendMessage = async (
   req: Request,
   res: Response
 ): Promise<void> => {
-  const somePushTokens = ["ExponentPushToken[OCKa1dKZdj-trEK1XFODPw]"];
+  const somePushTokens = ["ExponentPushToken[VxDLpnGDN_ZsoxPf5ejdRr]"];
 
   if (!somePushTokens || somePushTokens.length === 0) {
     res.status(400).send("No push tokens provided.");
