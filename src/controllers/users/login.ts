@@ -58,6 +58,7 @@ export const handleLogin = async (
       await sendPushNotification({
         body: `Hello ${foundUser.firstName}, Your account was logged in at ${formattedLastLogin}`,
         pushTokens: [foundUser.pushToken],
+        title: "Login Successful",
       });
     }
 
