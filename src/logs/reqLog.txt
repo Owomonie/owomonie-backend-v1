@@ -499,3 +499,13 @@
 20241228	16:08:22	9bb227c0-5580-4fd1-938e-2a7703427247	PATCH	undefined	/notifications/save-push-token
 20241228	16:08:55	9913d57d-8c41-4993-9f72-932c1783bedb	GET	undefined	/get-user-details
 20241228	19:17:46	fd4d7c8d-2edf-400e-b739-e00d0314ce1a	POST	undefined	/unauth-notifications/save-push-token
+20241230	18:49:10	2277af3c-8213-424e-a620-d4e829100b39	POST	http://localhost:5173	/login
+20241230	19:08:12	fe538c36-bbff-4510-95e9-e73376e245af	POST	http://localhost:5173	/login
+20241230	19:12:25	e56060b4-1594-48c2-a884-20859e6b9f24	POST	http://localhost:5173	/login
+20241230	19:12:39	73db5260-d221-4833-a41f-956b02a131e0	POST	http://localhost:5173	/login
+20241230	19:12:43	1265885d-2b55-4963-97b7-31d8824de3ae	POST	http://localhost:5173	/login
+20241230	19:12:57	25be4117-53b5-45e3-ab42-ebaf7e714062	POST	http://localhost:5173	/login
+20241230	19:12:59	91d6365d-ff69-443b-9c22-257f42c8183c	POST	http://localhost:5173	/login
+20241230	19:13:00	08e9d76e-a9c6-46a9-913d-5ad4d0f3fb60	POST	http://localhost:5173	/login
+20241230	19:15:41	ef77f0a0-9867-4193-8d50-39dc12979a2c	POST	http://localhost:5173	/login
+20241230	19:15:56	8a9ff68e-8292-44a8-8e06-c85cf97ff671	POST	http://localhost:5173	/login

@@ -7,6 +7,8 @@ import { sendPushNotification } from "../../expo-push-notification/notification"
 
 const JWT_SECRET = process.env.JWT_SECRET!;
 
+const ADMIN_ROUTE = process.env.ADMIN_ROUTE!;
+
 const JWT_EXPIRATION = "1h";
 
 export const handleLogin = async (
@@ -14,6 +16,8 @@ export const handleLogin = async (
   res: Response
 ): Promise<void> => {
   const { email, password } = req.body;
+
+  const origin = req.headers.origin;
 
   if (!email || !password) {
     res
@@ -30,6 +34,10 @@ export const handleLogin = async (
       return;
     }
 
+    if (origin === ADMIN_ROUTE && !foundUser.isAdmin) {
+      res.status(401).json({ success: false, message: "Unauthorized" });
+      return;
+    }
     const isMatch =
       foundUser.password &&
       (await bcrypt.compare(password, foundUser.password));
