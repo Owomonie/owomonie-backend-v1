@@ -96,6 +96,7 @@ app.use("/notifications", notification);
 
 app.use(verifyAdmin);
 app.use("/bank", bank);
+app.use("/send-notification", notification);
 
 app.use(multerErrorHandler);
 app.use(errorEvent);

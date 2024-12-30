@@ -42,7 +42,7 @@ export const sendPushNotification = async ({
       to: pushToken,
       sound: "default",
       title,
-      subtitle: subTitle, // Fixed key name to 'subtitle'
+      subtitle: subTitle,
       body,
       data: {
         data,
@@ -97,7 +97,7 @@ export const sendPushNotification = async ({
 
   // Return success message and the list of ticket objects
   return {
-    message: "Notifications sent successfully.",
+    message: "Push Notifications sent successfully.",
     tickets,
   };
 };
