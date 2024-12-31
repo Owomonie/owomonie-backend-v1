@@ -26,6 +26,7 @@ import { connectDB } from "./config";
 import multerErrorHandler from "./middlewares/multerError";
 import corsOptions from "./config/corsOption";
 import users from "./routes/admin/all-users";
+import userUpdateAdmin from "./routes/admin/update-user";
 
 dotenv.config();
 
@@ -98,6 +99,7 @@ app.use("/notifications", notification);
 app.use(verifyAdmin);
 app.use("/bank", bank);
 app.use("/get-all-users", users);
+app.use("/update-user", userUpdateAdmin);
 app.use("/send-notification", notification);
 
 app.use(multerErrorHandler);

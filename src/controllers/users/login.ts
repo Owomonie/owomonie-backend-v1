@@ -42,6 +42,18 @@ export const handleLogin = async (
       res.status(401).json({ success: false, message: "Unauthorized" });
       return;
     }
+
+    if (foundUser.status === -1) {
+      if (foundUser.pushToken) {
+        await sendPushNotification({
+          body: `Hello ${foundUser.firstName}, Your account has been suspended. Kindly reach out to customer care service`,
+          pushTokens: [foundUser.pushToken],
+          title: "Login Failed",
+        });
+        res.status(401).json({ success: false, message: "Account Suspended" });
+      }
+      return;
+    }
     const isMatch =
       foundUser.password &&
       (await bcrypt.compare(password, foundUser.password));
@@ -67,6 +79,9 @@ export const handleLogin = async (
     // Generate a JWT token
     const token = jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRATION });
 
+    foundUser.loginToken = token;
+    await foundUser.save();
+
     // If the user has a push token, send the push notification
     if (foundUser.pushToken) {
       await sendPushNotification({
@@ -79,7 +94,7 @@ export const handleLogin = async (
     res.status(200).json({
       success: true,
       message: "Login Sucesssful",
-      token,
+      token: foundUser.loginToken,
       isAdmin: foundUser.isAdmin,
     });
   } catch (error) {
