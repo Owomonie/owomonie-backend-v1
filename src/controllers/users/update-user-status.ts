@@ -77,7 +77,12 @@ export const handleUserStatusUpdate = async (
       }
     }
 
-    res.status(200).json({ success: true, message: "User Status Updated" });
+    res
+      .status(200)
+      .json({
+        success: true,
+        message: `User ${foundUser.userName} Status Updated Successfully`,
+      });
   } catch (error) {
     res.status(500).json({ success: false, message: "Server Error" });
   }
