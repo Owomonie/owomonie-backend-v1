@@ -53,6 +53,8 @@ export const handleLogin = async (
 
     foundUser.lastLogin = new Date();
 
+    await foundUser.save();
+
     const formattedLastLogin = foundUser.lastLogin.toLocaleString();
 
     // Create a token payload

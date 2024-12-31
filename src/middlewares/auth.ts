@@ -21,7 +21,9 @@ const authenticateToken = (
 
   jwt.verify(token, JWT_SECRET, (err, user) => {
     if (err) {
-      return res.status(403).json({ success: false, message: "Invalid Token" });
+      return res
+        .status(403)
+        .json({ success: false, message: "Invalid User Token" });
     }
 
     //@ts-ignore

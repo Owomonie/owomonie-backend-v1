@@ -25,6 +25,7 @@ import { errorEvent, logger, verifyAdmin, verifyAuth } from "./middlewares";
 import { connectDB } from "./config";
 import multerErrorHandler from "./middlewares/multerError";
 import corsOptions from "./config/corsOption";
+import users from "./routes/admin/all-users";
 
 dotenv.config();
 
@@ -96,6 +97,7 @@ app.use("/notifications", notification);
 
 app.use(verifyAdmin);
 app.use("/bank", bank);
+app.use("/get-all-users", users);
 app.use("/send-notification", notification);
 
 app.use(multerErrorHandler);
