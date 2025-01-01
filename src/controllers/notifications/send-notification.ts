@@ -10,17 +10,10 @@ export const handleSendNotification = async (
   req: Request,
   res: Response
 ): Promise<void> => {
-  /**
-   * type
-   * 0 -> PushNotification
-   * 1 -> Email
-   * 2 -> PushNotification and Email
-   *
-   * Status
-   * 0 -> Draft
-   * 1 -> Send
-   */
   const { title, body, type, status, categories, recipient } = req.body;
+
+  //@ts-ignore
+  const userId = req.user.userId;
 
   // Check for missing required fields
   if (!title) {
@@ -47,7 +40,7 @@ export const handleSendNotification = async (
   }
 
   // Validate `type` (should be one of 0, 1, or 2)
-  if (![0, 1, 2].includes(type)) {
+  if (!["0", "1", "2"].includes(type)) {
     res.status(400).json({
       success: false,
       message: "Invalid notification type. Valid types are 0, 1, or 2.",
@@ -56,7 +49,7 @@ export const handleSendNotification = async (
   }
 
   // Validate `status` (should be 0 or 1)
-  if (![0, 1].includes(status)) {
+  if (!["0", "1"].includes(status)) {
     res.status(400).json({
       success: false,
       message: "Invalid status. Valid statuses are 0 (Draft) or 1 (Send).",
@@ -65,8 +58,8 @@ export const handleSendNotification = async (
   }
 
   try {
-    if (status === 1) {
-      if (type === 0 || type === 2) {
+    if (status === "1") {
+      if (type === "0" || type === "2") {
         if (recipient === "all") {
           // Fetch all push tokens
           const pushTokens = await PushTokenModel.find();
@@ -79,7 +72,7 @@ export const handleSendNotification = async (
 
           if (validPushTokenStrings.length > 0) {
             await sendPushNotification({
-              pushTokens: validPushTokenStrings, // Pass only valid push tokens
+              pushTokens: validPushTokenStrings,
               title,
               body,
               subTitle: "All", // Optional: add subtitle if needed
@@ -97,7 +90,7 @@ export const handleSendNotification = async (
 
           if (validPushTokens.length > 0) {
             await sendPushNotification({
-              pushTokens: validPushTokens, // Pass only valid push tokens
+              pushTokens: validPushTokens,
               title,
               body,
               subTitle: "Users", // Optional: add subtitle if needed
@@ -126,7 +119,7 @@ export const handleSendNotification = async (
               pushTokens: [foundRecipient.pushToken],
               title,
               body,
-              subTitle: `$Hi ${foundRecipient.userName}`,
+              subTitle: `Hi ${foundRecipient.userName}`,
             });
           } else {
             res.status(400).json({ message: "Recipient has no push token" });
@@ -135,7 +128,7 @@ export const handleSendNotification = async (
         }
       }
 
-      if (type === 1 || type === 2) {
+      if (type === "1" || type === "2") {
         if (recipient === "users") {
           // Fetch users and their emails
           const users = await UserModel.find();
@@ -153,7 +146,7 @@ export const handleSendNotification = async (
             });
           }
         } else {
-          // If the recipient is a specific user ID, validate and fetch their push token
+          // If the recipient is a specific user ID, validate and fetch their email
           if (!mongoose.Types.ObjectId.isValid(recipient)) {
             res
               .status(400)
@@ -166,9 +159,10 @@ export const handleSendNotification = async (
           }).exec();
 
           if (!foundRecipient) {
-            res
-              .status(401)
-              .json({ message: "Recipient Not Found", success: false });
+            res.status(401).json({
+              message: "Recipient Not Found",
+              success: false,
+            });
             return;
           }
 
@@ -182,6 +176,7 @@ export const handleSendNotification = async (
       }
     }
 
+    // If the recipient is "all" or "users", set recipient to null or another default value
     const notification = await NotificationModel.create({
       title,
       body,
@@ -190,6 +185,7 @@ export const handleSendNotification = async (
       categories,
       recipient,
       createdAt: new Date(),
+      sender: userId,
     });
 
     await notification.save();
@@ -197,7 +193,6 @@ export const handleSendNotification = async (
     res.status(200).json({
       success: true,
       message: "Notification sent successfully",
-      notification,
     });
   } catch (error) {
     console.error("Error sending notification:", error);

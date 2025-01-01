@@ -5,6 +5,7 @@ interface IBankSchema extends Document {
   bankSortCode: string;
   bankLogo: string;
   createdAt?: Date;
+  createdBy: mongoose.Types.ObjectId;
 }
 
 const BankSchema = new Schema<IBankSchema>({
@@ -23,6 +24,12 @@ const BankSchema = new Schema<IBankSchema>({
   },
 
   createdAt: { type: Date, default: Date.now },
+
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
 });
 
 const BankModel = mongoose.model<IBankSchema>("Bank", BankSchema);

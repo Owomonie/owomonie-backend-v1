@@ -3,8 +3,8 @@ import mongoose, { Document, Schema } from "mongoose";
 interface INotificationSchema extends Document {
   body: string;
   title: string;
-  recipient?: mongoose.Types.ObjectId;
-  userId: mongoose.Types.ObjectId;
+  recipient?: mongoose.Types.ObjectId | string;
+  sender: mongoose.Types.ObjectId;
   type: number;
   status: number;
   categories: string[];
@@ -14,8 +14,11 @@ interface INotificationSchema extends Document {
 const notificationSchema = new Schema<INotificationSchema>({
   body: { type: String, required: true },
   title: { type: String, required: true },
-  recipient: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  recipient: {
+    type: Schema.Types.Mixed,
+    required: true,
+  },
+  sender: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   type: { type: Number, required: true },
   status: { type: Number, required: true },
   categories: [{ type: String }],

@@ -27,6 +27,7 @@ import multerErrorHandler from "./middlewares/multerError";
 import corsOptions from "./config/corsOption";
 import users from "./routes/admin/all-users";
 import userUpdateAdmin from "./routes/admin/update-user";
+import notificationByAdmin from "./routes/admin/notification";
 
 dotenv.config();
 
@@ -100,7 +101,7 @@ app.use(verifyAdmin);
 app.use("/bank", bank);
 app.use("/get-all-users", users);
 app.use("/update-user", userUpdateAdmin);
-app.use("/send-notification", notification);
+app.use("/send-notification", notificationByAdmin);
 
 app.use(multerErrorHandler);
 app.use(errorEvent);

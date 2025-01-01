@@ -14,7 +14,6 @@ const GeneralMessage = ({
   sendMessage({
     email,
     html: `<div>
-          <p>Hi ${userName ? userName : "User"}</p>
           <p>${body}</p>
      </div>`,
     subject: title,

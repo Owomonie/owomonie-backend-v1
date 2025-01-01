@@ -10,6 +10,9 @@ export const handleCreateNewBank = async (
     const { bankName, bankSortCode } = req.body;
     const file = req.file;
 
+    //@ts-ignore
+    const userId = req.user.userId;
+
     if (!bankName || !bankSortCode) {
       res
         .status(400)
@@ -41,6 +44,7 @@ export const handleCreateNewBank = async (
       bankName,
       bankSortCode,
       bankLogo,
+      createdBy: userId,
     });
 
     res

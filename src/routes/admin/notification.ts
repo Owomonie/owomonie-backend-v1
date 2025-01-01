@@ -1,8 +1,8 @@
 import { Router } from "express";
 import { handleSendNotification } from "../../controllers/notifications/send-notification";
 
-const notification = Router();
+const notificationByAdmin = Router();
 
-notification.post("/", handleSendNotification);
+notificationByAdmin.post("/", handleSendNotification);
 
-export default notification;
+export default notificationByAdmin;
