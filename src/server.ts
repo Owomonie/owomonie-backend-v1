@@ -101,7 +101,7 @@ app.use(verifyAdmin);
 app.use("/bank", bank);
 app.use("/get-all-users", users);
 app.use("/update-user", userUpdateAdmin);
-app.use("/send-notification", notificationByAdmin);
+app.use("/notification", notificationByAdmin);
 
 app.use(multerErrorHandler);
 app.use(errorEvent);

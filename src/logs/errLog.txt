@@ -1,1 +1,4 @@
 20241226	08:21:15	ee4f5695-3567-4016-a37a-311205cf9890	Error: Not allowed by CORS
+20250102	11:24:03	ed0b3bec-efc9-4525-be36-f43f7fa97208	Error: Not allowed by CORS
+20250102	11:24:04	92425dba-cb43-48f5-8dee-3cb658ffa6fe	Error: Not allowed by CORS
+20250102	11:24:18	126364d4-47dd-4919-966f-9fa2a38eb36c	Error: Not allowed by CORS
