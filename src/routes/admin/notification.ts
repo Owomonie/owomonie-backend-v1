@@ -1,5 +1,8 @@
 import { Router } from "express";
-import { handleSendNotification } from "../../controllers/notifications/send-notification";
+import {
+  handleDraftToSendNotification,
+  handleSendNotification,
+} from "../../controllers/notifications/send-notification";
 import {
   handleGetAllDraftNotification,
   handleGetAllSentNotification,
@@ -8,6 +11,10 @@ import {
 const notificationByAdmin = Router();
 
 notificationByAdmin.post("/send", handleSendNotification);
+notificationByAdmin.patch(
+  "/draft-to-send/:notificationId",
+  handleDraftToSendNotification
+);
 notificationByAdmin.get("/sent", handleGetAllSentNotification);
 notificationByAdmin.get("/drafts", handleGetAllDraftNotification);
 

@@ -7,6 +7,7 @@ interface INotificationSchema extends Document {
   sender: mongoose.Types.ObjectId;
   type: number;
   status: number;
+  totalReceivers: number;
   categories: string[];
   createdAt: Date;
 }
@@ -21,6 +22,7 @@ const notificationSchema = new Schema<INotificationSchema>({
   sender: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   type: { type: Number, required: true },
   status: { type: Number, required: true },
+  totalReceivers: { type: Number, required: true },
   categories: [{ type: String }],
   createdAt: { type: Date, default: Date.now },
 });

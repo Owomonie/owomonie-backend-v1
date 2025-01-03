@@ -10,7 +10,7 @@ const JWT_SECRET = process.env.JWT_SECRET!;
 const ADMIN_ROUTE_ONE = process.env.ADMIN_ROUTE_ONE!;
 const ADMIN_ROUTE_TWO = process.env.ADMIN_ROUTE_TWO!;
 
-const JWT_EXPIRATION = "1h";
+const JWT_EXPIRATION = "3h";
 
 export const handleLogin = async (
   req: Request,
