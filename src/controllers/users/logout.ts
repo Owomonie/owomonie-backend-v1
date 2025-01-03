@@ -1,16 +1,6 @@
 import { Request, Response } from "express";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 
 import UserModel from "../../models/user";
-import { sendPushNotification } from "../../expo-push-notification/notification";
-
-const JWT_SECRET = process.env.JWT_SECRET!;
-
-const ADMIN_ROUTE_ONE = process.env.ADMIN_ROUTE_ONE!;
-const ADMIN_ROUTE_TWO = process.env.ADMIN_ROUTE_TWO!;
-
-const JWT_EXPIRATION = "3h";
 
 export const handleLogout = async (
   req: Request,
@@ -34,7 +24,7 @@ export const handleLogout = async (
 
     res.status(200).json({
       success: true,
-      message: "Logout Sucesssful",
+      message: "You are successfully Logged out",
     });
   } catch (error) {
     res.status(500).json({ success: false, message: "Server Error" });
