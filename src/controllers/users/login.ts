@@ -16,7 +16,7 @@ export const handleLogin = async (
   req: Request,
   res: Response
 ): Promise<void> => {
-  const { email, password } = req.body;
+  const { email, password, pushToken } = req.body;
 
   const origin = req.headers.origin;
 
@@ -41,10 +41,10 @@ export const handleLogin = async (
     }
 
     if (foundUser.status === -1) {
-      if (foundUser.pushToken) {
+      if (foundUser.pushToken || pushToken) {
         await sendPushNotification({
           body: `Hello ${foundUser.firstName}, Your account has been suspended. Kindly reach out to customer care service`,
-          pushTokens: [foundUser.pushToken],
+          pushTokens: [foundUser.pushToken ? foundUser.pushToken : pushToken],
           title: "Login Failed",
         });
         res.status(401).json({ success: false, message: "Account Suspended" });
@@ -75,7 +75,6 @@ export const handleLogin = async (
 
     // Generate a JWT token
     const token = jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRATION });
-    console.log(foundUser.pushToken);
 
     foundUser.loginToken = token;
     await foundUser.save();
