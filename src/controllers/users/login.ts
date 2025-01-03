@@ -81,6 +81,7 @@ export const handleLogin = async (
 
     // If the user has a push token, send the push notification
     if (foundUser.pushToken) {
+      console.log(foundUser.pushToken);
       await sendPushNotification({
         body: `Hello ${foundUser.firstName}, Your account was logged in at ${formattedLastLogin}`,
         pushTokens: [foundUser.pushToken],
