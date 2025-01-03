@@ -35,10 +35,7 @@ export const handleLogin = async (
       return;
     }
 
-    if (
-      (origin === ADMIN_ROUTE_ONE || origin === ADMIN_ROUTE_TWO) &&
-      !foundUser.isAdmin
-    ) {
+    if (origin === ADMIN_ROUTE_ONE && !foundUser.isAdmin) {
       res.status(401).json({ success: false, message: "Unauthorized" });
       return;
     }
