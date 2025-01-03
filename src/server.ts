@@ -28,6 +28,7 @@ import corsOptions from "./config/corsOption";
 import users from "./routes/admin/all-users";
 import userUpdateAdmin from "./routes/admin/update-user";
 import notificationByAdmin from "./routes/admin/notification";
+import logoutRouter from "./routes/users/logout";
 
 dotenv.config();
 
@@ -96,6 +97,7 @@ app.use("/get-user-details", userDetailsRoute);
 app.use("/update", userUpdate);
 app.use("/banks", banks);
 app.use("/notifications", notification);
+app.use("/logout", logoutRouter);
 
 app.use(verifyAdmin);
 app.use("/bank", bank);
