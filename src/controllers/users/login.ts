@@ -75,13 +75,13 @@ export const handleLogin = async (
 
     // Generate a JWT token
     const token = jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRATION });
+    console.log(foundUser.pushToken);
 
     foundUser.loginToken = token;
     await foundUser.save();
 
     // If the user has a push token, send the push notification
     if (foundUser.pushToken) {
-      console.log(foundUser.pushToken);
       await sendPushNotification({
         body: `Hello ${foundUser.firstName}, Your account was logged in at ${formattedLastLogin}`,
         pushTokens: [foundUser.pushToken],
