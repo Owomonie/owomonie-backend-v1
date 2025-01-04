@@ -17,6 +17,7 @@ export const handleLogin = async (
   res: Response
 ): Promise<void> => {
   const { email, password, pushToken } = req.body;
+  console.log("PushTOKen ", pushToken);
 
   const origin = req.headers.origin;
 
@@ -80,10 +81,10 @@ export const handleLogin = async (
     await foundUser.save();
 
     // If the user has a push token, send the push notification
-    if (foundUser.pushToken) {
+    if (foundUser.pushToken || pushToken) {
       await sendPushNotification({
         body: `Hello ${foundUser.firstName}, Your account was logged in at ${formattedLastLogin}`,
-        pushTokens: [foundUser.pushToken],
+        pushTokens: [foundUser.pushToken ? foundUser.pushToken : pushToken],
         title: "Login Successful",
       });
     }
