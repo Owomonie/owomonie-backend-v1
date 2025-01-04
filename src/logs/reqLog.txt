@@ -1716,3 +1716,9 @@
 20250104	07:11:18	df78c8c9-783f-49cb-b41b-3324059008e8	GET	undefined	/logout
 20250104	07:16:06	64389b93-d175-495f-81d4-06611fd97341	POST	undefined	/unauth-notifications/save-push-token
 20250104	07:22:55	b92b34e1-9f99-4add-9359-d352b1138766	POST	undefined	/unauth-notifications/save-push-token
+20250104	07:26:56	32d985fe-5822-4492-9a43-d22cb19e303a	GET	http://localhost:5173	/get-user-details
+20250104	07:26:56	a38b64e4-7b31-47c4-9a8a-5d7ce80517d2	GET	http://localhost:5173	/get-user-details
+20250104	07:26:58	5853723c-cea3-4c35-beae-88be00f08632	GET	http://localhost:5173	/get-user-details
+20250104	07:26:58	6fe8c38a-22a1-4765-a272-2c36b8901d50	GET	http://localhost:5173	/get-all-users
+20250104	07:26:58	6e4fccf2-7633-4a40-868c-938e5d48a96a	GET	http://localhost:5173	/get-all-users
+20250104	07:26:58	87b5e6ea-c63b-467d-9c18-505db15e69fc	GET	http://localhost:5173	/get-all-users

@@ -17,7 +17,6 @@ export const handleLogin = async (
   res: Response
 ): Promise<void> => {
   const { email, password, pushToken } = req.body;
-  console.log("PushTOKen ", pushToken);
 
   const origin = req.headers.origin;
 
@@ -41,11 +40,16 @@ export const handleLogin = async (
       return;
     }
 
+    if (pushToken) {
+      foundUser.pushToken = pushToken;
+    }
+    await foundUser.save();
+
     if (foundUser.status === -1) {
-      if (foundUser.pushToken || pushToken) {
+      if (foundUser.pushToken) {
         await sendPushNotification({
           body: `Hello ${foundUser.firstName}, Your account has been suspended. Kindly reach out to customer care service`,
-          pushTokens: [foundUser.pushToken ? foundUser.pushToken : pushToken],
+          pushTokens: [foundUser.pushToken],
           title: "Login Failed",
         });
         res.status(401).json({ success: false, message: "Account Suspended" });
@@ -62,7 +66,6 @@ export const handleLogin = async (
     }
 
     foundUser.lastLogin = new Date();
-
     await foundUser.save();
 
     const formattedLastLogin = foundUser.lastLogin.toLocaleString();
@@ -81,10 +84,10 @@ export const handleLogin = async (
     await foundUser.save();
 
     // If the user has a push token, send the push notification
-    if (foundUser.pushToken || pushToken) {
+    if (foundUser.pushToken) {
       await sendPushNotification({
         body: `Hello ${foundUser.firstName}, Your account was logged in at ${formattedLastLogin}`,
-        pushTokens: [foundUser.pushToken ? foundUser.pushToken : pushToken],
+        pushTokens: [foundUser.pushToken],
         title: "Login Successful",
       });
     }

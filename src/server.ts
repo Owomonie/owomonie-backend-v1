@@ -18,8 +18,6 @@ import {
   userRegisterRoute,
   userUpdate,
   userVerificationRoute,
-  notification,
-  userUnauthNotification,
 } from "./routes";
 import { errorEvent, logger, verifyAdmin, verifyAuth } from "./middlewares";
 import { connectDB } from "./config";
@@ -29,6 +27,7 @@ import users from "./routes/admin/all-users";
 import userUpdateAdmin from "./routes/admin/update-user";
 import notificationByAdmin from "./routes/admin/notification";
 import logoutRouter from "./routes/users/logout";
+import savePushToken from "./routes/users/save-push-token";
 
 dotenv.config();
 
@@ -90,13 +89,12 @@ app.use("/new-user-verification", userVerificationRoute);
 app.use("/register-user", userRegisterRoute);
 app.use("/login", userLoginRoute);
 app.use("/forget-password", userForgetPassword);
-app.use("/unauth-notifications", userUnauthNotification);
+app.use("/save-push-token", savePushToken);
 
 app.use(verifyAuth);
 app.use("/get-user-details", userDetailsRoute);
 app.use("/update", userUpdate);
 app.use("/banks", banks);
-app.use("/notifications", notification);
 app.use("/logout", logoutRouter);
 
 app.use(verifyAdmin);
