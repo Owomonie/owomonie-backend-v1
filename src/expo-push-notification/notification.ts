@@ -42,7 +42,7 @@ export const sendPushNotification = async ({
       to: pushToken,
       sound: "default",
       title,
-      subtitle: subTitle,
+      subTitle,
       body,
       data: {
         data,
