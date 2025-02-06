@@ -20,6 +20,7 @@ interface IUserSchema extends Document {
   pushToken?: string;
   lastLogin?: Date;
   loginToken?: string;
+  items: mongoose.Schema.Types.ObjectId[];
 }
 
 const userSchema = new Schema<IUserSchema>({
@@ -90,6 +91,8 @@ const userSchema = new Schema<IUserSchema>({
   loginToken: {
     type: String,
   },
+
+  items: [{ type: mongoose.Schema.Types.ObjectId, ref: "Item" }],
 });
 
 const UserModel = mongoose.model<IUserSchema>("User", userSchema);
