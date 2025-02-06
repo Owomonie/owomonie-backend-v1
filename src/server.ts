@@ -38,7 +38,6 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-// Connect to MongoDB
 connectDB();
 
 cron.schedule("0 0 * * *", deleteUnregisteredUsers);
