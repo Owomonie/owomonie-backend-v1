@@ -1867,3 +1867,5 @@
 20250104	15:48:02	407ea680-b53b-4557-8064-e869464607d5	GET	http://localhost:5173	/get-user-details
 20250104	15:48:02	1491c083-2a68-4504-9e8e-e6a1503cf124	GET	http://localhost:5173	/get-all-users
 20250104	15:48:06	9cace1ab-84d5-4d30-b9a7-1088878a63b3	GET	http://localhost:5173	/get-all-users
+20250206	03:47:52	74ed61dc-f364-4475-99d3-731fd4bfd555	GET	undefined	/
+20250206	03:48:48	57da0beb-bedb-4245-82ca-97875856ebdb	GET	undefined	/favicon.ico
