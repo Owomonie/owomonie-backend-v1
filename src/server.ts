@@ -10,8 +10,9 @@ import {
   deleteUnregisteredUsers,
 } from "./controllers/users/delete-users";
 import {
-  bank,
-  banks,
+  plaidRoute,
+  // bank,
+  // banks,
   userDetailsRoute,
   userForgetPassword,
   userLoginRoute,
@@ -58,11 +59,12 @@ app.use("/save-push-token", savePushToken);
 app.use(verifyAuth);
 app.use("/get-user-details", userDetailsRoute);
 app.use("/update", userUpdate);
-app.use("/banks", banks);
+// app.use("/banks", banks);
 app.use("/logout", logoutRouter);
+app.use("/plaid", plaidRoute);
 
 app.use(verifyAdmin);
-app.use("/bank", bank);
+// app.use("/bank", bank);
 app.use("/get-all-users", users);
 app.use("/update-user", userUpdateAdmin);
 app.use("/notification", notificationByAdmin);
