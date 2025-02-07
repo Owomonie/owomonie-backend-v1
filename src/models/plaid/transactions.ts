@@ -2,13 +2,15 @@ import mongoose, { Document, Schema } from "mongoose";
 
 interface ITransaction extends Document {
   date: Date;
+  name: string;
   amount: number;
+  currency: "USD";
+  isRemoved: boolean;
   type: "Debit" | "Credit";
   description: string;
   account: mongoose.Schema.Types.ObjectId; // Reference to Account
   user: mongoose.Schema.Types.ObjectId; // Reference to User
   categories: [string];
-  createdAt: Date;
 }
 
 const transactionSchema: Schema<ITransaction> = new Schema({
@@ -23,7 +25,6 @@ const transactionSchema: Schema<ITransaction> = new Schema({
   },
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   categories: { type: [String] },
-  createdAt: { type: Date, default: Date.now },
 });
 
 const Transaction = mongoose.model<ITransaction>(

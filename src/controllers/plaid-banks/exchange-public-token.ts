@@ -1,20 +1,23 @@
 import { Request, Response } from "express";
 
 import UserModel from "../../models/user";
-import {
-  PLAID_COUNTRY_CODES,
-  PLAID_PRODUCTS,
-  PLAID_WEBHOOK_URL,
-  plaidClient,
-} from "../../config/plaid";
+import { plaidClient } from "../../config/plaid";
 
-export const handleGeneratePlaidPublicToken = async (
+export const handleExchangePlaidPublicToken = async (
   req: Request,
   res: Response
 ): Promise<void> => {
   try {
     //@ts-ignore
     const userId = req.user.userId;
+    const publicToken = req.body.publicToken;
+
+    if (!publicToken) {
+      res
+        .status(400)
+        .json({ success: false, message: "Public token is required" });
+      return;
+    }
 
     const user = await UserModel.findById(userId).exec();
 
@@ -23,15 +26,11 @@ export const handleGeneratePlaidPublicToken = async (
       return;
     }
 
-    const userObject = { client_user_id: userId };
-    const tokenResponse = await plaidClient.linkTokenCreate({
-      user: userObject,
-      client_name: "Owomonie",
-      language: "en",
-      products: PLAID_PRODUCTS,
-      country_codes: PLAID_COUNTRY_CODES,
-      webhook: PLAID_WEBHOOK_URL,
+    const tokenResponse = await plaidClient.itemPublicTokenExchange({
+      public_token: publicToken,
     });
+
+    console.log(tokenResponse.data);
     res.json(tokenResponse.data);
   } catch (error) {
     console.error(error);
