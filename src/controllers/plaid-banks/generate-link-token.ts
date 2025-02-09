@@ -8,6 +8,8 @@ import {
   plaidClient,
 } from "../../config/plaid";
 
+const ANDROID_PACKAGE_NAME = process.env.ANDROID_PACKAGE_NAME!;
+
 export const handleGeneratePlaidLinkToken = async (
   req: Request,
   res: Response
@@ -16,14 +18,18 @@ export const handleGeneratePlaidLinkToken = async (
     //@ts-ignore
     const userId = req.user.userId;
 
-    const user = await UserModel.findById(userId).exec();
+    const foundUser = await UserModel.findById(userId).exec();
 
-    if (!user) {
+    if (!foundUser) {
       res.status(404).json({ success: false, message: "User Not Found" });
       return;
     }
 
-    const userObject = { client_user_id: userId };
+    const userObject = {
+      client_user_id: userId,
+      email_address: foundUser.email,
+    };
+
     const tokenResponse = await plaidClient.linkTokenCreate({
       user: userObject,
       client_name: "Owomonie",
@@ -31,9 +37,10 @@ export const handleGeneratePlaidLinkToken = async (
       products: PLAID_PRODUCTS,
       country_codes: PLAID_COUNTRY_CODES,
       webhook: PLAID_WEBHOOK_URL,
+      android_package_name: ANDROID_PACKAGE_NAME,
     });
 
-    res.json(tokenResponse.data);
+    res.json({ data: tokenResponse.data, success: true });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, message: "Server Error" });
