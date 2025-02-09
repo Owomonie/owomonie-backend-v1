@@ -29,6 +29,7 @@ import userUpdateAdmin from "./routes/admin/update-user";
 import notificationByAdmin from "./routes/admin/notification";
 import logoutRouter from "./routes/users/logout";
 import savePushToken from "./routes/users/save-push-token";
+import adminPlaidBankRouter from "./routes/admin/plaid-bank";
 
 dotenv.config();
 
@@ -68,6 +69,7 @@ app.use(verifyAdmin);
 app.use("/get-all-users", users);
 app.use("/update-user", userUpdateAdmin);
 app.use("/notification", notificationByAdmin);
+app.use("/admin-plaid", adminPlaidBankRouter);
 
 app.use(multerErrorHandler);
 app.use(errorEvent);
