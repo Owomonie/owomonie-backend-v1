@@ -1,6 +1,8 @@
 export default function removeBankSuffix(bankName: string) {
-  if (bankName.endsWith(" Bank")) {
-    return bankName.slice(0, -5);
+  const bankIndex = bankName.indexOf(" Bank");
+  if (bankIndex !== -1) {
+    return bankName.slice(0, bankIndex);
   }
+
   return bankName;
 }

@@ -1,21 +1,39 @@
 import mongoose, { Document, Schema } from "mongoose";
 
 interface IAccount extends Document {
-  accountNumber: string;
-  accountType: string;
-  item: mongoose.Schema.Types.ObjectId; // Reference to Item (Bank)
-  transactions: mongoose.Schema.Types.ObjectId[]; // References to transactions
+  accountId: string;
+  balance: number;
+  user: mongoose.Schema.Types.ObjectId;
+  item: mongoose.Schema.Types.ObjectId;
+  transactions: mongoose.Schema.Types.ObjectId[];
+  category: string;
+  name: string;
+  mask: string;
+  type: string;
+  subType: string;
+  currency: string;
+  limit: number;
+  lastBalanceUpdate: Date;
   createdAt: Date;
 }
 
 const accountSchema: Schema<IAccount> = new Schema({
-  accountNumber: { type: String, required: true },
-  accountType: { type: String, required: true },
+  accountId: { type: String, required: true },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  balance: { type: Number, required: true },
   item: { type: mongoose.Schema.Types.ObjectId, ref: "Item", required: true },
   transactions: [{ type: mongoose.Schema.Types.ObjectId, ref: "Transaction" }],
+  category: { type: String },
+  name: { type: String, required: true },
+  mask: { type: String },
+  type: { type: String },
+  subType: { type: String },
+  currency: { type: String },
+  limit: { type: Number },
+  lastBalanceUpdate: { type: Date },
   createdAt: { type: Date, default: Date.now },
 });
 
-const Account = mongoose.model<IAccount>("Account", accountSchema);
+const AccountModel = mongoose.model<IAccount>("Account", accountSchema);
 
-export default Account;
+export default AccountModel;
