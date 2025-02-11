@@ -35,6 +35,7 @@ export const handleGetUserBanks = async (
       return {
         id: bank._id,
         logo: bank.logo,
+        createdAt: bank.createdAt,
       };
     });
 
@@ -76,10 +77,11 @@ export const handleGetUserAccounts = async (
 
     const accountData = user.items.flatMap((bank) =>
       bank.accounts.map((account) => ({
+        id: account._id,
         bankName: bank.name,
         bankLogo: bank.logo,
-        accountId: account._id,
         balance: account.balance,
+        createdAt: account.createdAt,
       }))
     );
 
