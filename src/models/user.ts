@@ -1,4 +1,5 @@
 import mongoose, { Document, Schema } from "mongoose";
+import { IItem } from "./plaid/item";
 
 interface IUserSchema extends Document {
   userName?: string;
@@ -20,7 +21,7 @@ interface IUserSchema extends Document {
   pushToken?: string;
   lastLogin?: Date;
   loginToken?: string;
-  items: mongoose.Schema.Types.ObjectId[];
+  items: IItem[];
 }
 
 const userSchema = new Schema<IUserSchema>({

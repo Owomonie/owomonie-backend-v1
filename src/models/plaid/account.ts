@@ -1,11 +1,12 @@
 import mongoose, { Document, Schema } from "mongoose";
+import { ITransaction } from "./transactions";
 
-interface IAccount extends Document {
+export interface IAccount extends Document {
   accountId: string;
   balance: number;
   user: mongoose.Schema.Types.ObjectId;
   item: mongoose.Schema.Types.ObjectId;
-  transactions: mongoose.Schema.Types.ObjectId[];
+  transactions: ITransaction[];
   category: string;
   name: string;
   mask: string;

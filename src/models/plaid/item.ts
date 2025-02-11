@@ -1,11 +1,12 @@
 import mongoose, { Document, Schema } from "mongoose";
+import { IAccount } from "./account";
 
-interface IItem extends Document {
+export interface IItem extends Document {
   itemId: string;
   name: string;
   formatName: string;
   user: mongoose.Schema.Types.ObjectId;
-  accounts: mongoose.Schema.Types.ObjectId[];
+  accounts: IAccount[];
   accountNames: string[];
   accessToken: string;
   logo: string | null;
