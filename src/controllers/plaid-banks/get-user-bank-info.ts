@@ -81,6 +81,7 @@ export const handleGetUserAccounts = async (
         bankName: bank.name,
         bankLogo: bank.logo,
         balance: account.balance,
+        accountNo: account.mask,
         createdAt: account.createdAt,
       }))
     );
