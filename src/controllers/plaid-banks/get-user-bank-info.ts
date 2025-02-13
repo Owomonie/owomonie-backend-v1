@@ -24,6 +24,14 @@ export const handleGetUserBanks = async (
       return;
     }
 
+    if (user.items?.length <= 0) {
+      res.status(404).json({
+        success: false,
+        message: "No Banks Availiable for this users",
+      });
+      return;
+    }
+
     let totalBalance = 0;
     const allBanksData = user.items.map((bank) => {
       const bankTotalBalance = bank.accounts.reduce(
@@ -72,6 +80,14 @@ export const handleGetUserAccounts = async (
 
     if (!user) {
       res.status(404).json({ success: false, message: "User Not Found" });
+      return;
+    }
+
+    if (user.items?.length <= 0) {
+      res.status(404).json({
+        success: false,
+        message: "No Banks Availiable for this users",
+      });
       return;
     }
 
