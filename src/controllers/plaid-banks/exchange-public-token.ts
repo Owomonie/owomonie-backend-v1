@@ -6,7 +6,7 @@ import PLaidBankLogoModel from "../../models/plaid/logo";
 import { PLAID_COUNTRY_CODES, plaidClient } from "../../config/plaid";
 import { sendPushNotification } from "../../expo-push-notification/notification";
 import GeneralMessage from "../../email/general/message";
-import removeBankSuffix from "./../../utils/bankSuffixRemove";
+import removeBankSuffix from "../../utils/bank-suffix-remove";
 import AccountModel from "../../models/plaid/account";
 import { syncTransactions } from "./sync-transactions";
 
