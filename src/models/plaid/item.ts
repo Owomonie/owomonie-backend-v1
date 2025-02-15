@@ -10,7 +10,8 @@ export interface IItem extends Document {
   accountNames: string[];
   accessToken: string;
   logo: string | null;
-  transactionCursor: string | null;
+  transactionCursor: string | undefined;
+  isActive: boolean;
   createdAt: Date;
 }
 
@@ -26,6 +27,7 @@ const itemSchema: Schema<IItem> = new Schema({
   accessToken: { type: String, required: true },
   transactionCursor: { type: String },
   logo: { type: String },
+  isActive: { type: Boolean, default: true },
   createdAt: { type: Date, default: Date.now },
 });
 

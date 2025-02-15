@@ -8,6 +8,7 @@ import { sendPushNotification } from "../../expo-push-notification/notification"
 import GeneralMessage from "../../email/general/message";
 import removeBankSuffix from "./../../utils/bankSuffixRemove";
 import AccountModel from "../../models/plaid/account";
+import { syncTransactions } from "./sync-transactions";
 
 export const handleExchangePlaidPublicToken = async (
   req: Request,
@@ -41,10 +42,11 @@ export const handleExchangePlaidPublicToken = async (
     });
 
     const accessToken = tokenResponse.data.access_token;
+    const itemId = tokenResponse.data.item_id;
 
     await populateItemDatabase({
       accessToken,
-      itemId: tokenResponse.data.item_id,
+      itemId,
       userId,
       name: bankName,
     });
@@ -53,6 +55,8 @@ export const handleExchangePlaidPublicToken = async (
       accessToken,
       userId,
     });
+
+    await syncTransactions({ itemName: bankName });
 
     const accountSuffix = numberOfAccounts === 1 ? "account" : "accounts";
 
