@@ -34,6 +34,7 @@ export interface ITransaction extends Document {
     region: string | null;
     store_number: string | null;
   };
+  createdAt: Date;
 }
 
 const transactionSchema: Schema<ITransaction> = new Schema({
@@ -78,6 +79,7 @@ const transactionSchema: Schema<ITransaction> = new Schema({
     region: { type: String },
     store_number: { type: String },
   },
+  createdAt: { type: Date, default: Date.now },
 });
 
 const TransactionModel = mongoose.model<ITransaction>(

@@ -1,47 +1,11 @@
-import { Request, Response } from "express";
 import { Transaction, RemovedTransaction } from "plaid";
-
-import UserModel from "../../models/user";
 import ItemModel from "../../models/plaid/item";
 import { plaidClient } from "../../config/plaid";
 import TransactionModel from "../../models/plaid/transactions";
 import AccountModel from "../../models/plaid/account";
 import { removeUnderScore } from "../../utils/remove-underscores";
 
-// const handleSyncTransactions = async (
-//   req: Request,
-//   res: Response
-// ): Promise<void> => {
-//   //@ts-ignore
-//   const userId = req.user.userId;
-
-//   const user = await UserModel.findById(userId)
-//     .populate({ path: "items" })
-//     .exec();
-
-//   if (!user) {
-//     res.status(404).json({ success: false, message: "User Not Found" });
-//     return;
-//   }
-
-//   if (user.items?.length <= 0) {
-//     res.status(404).json({
-//       success: false,
-//       message: "No Banks Availiable for this users",
-//     });
-//     return;
-//   }
-
-//   const fullResults = await Promise.all(
-//     user.items.map(async (item) => {
-//       return await syncTransactions({ itemId: item.itemId });
-//     })
-//   );
-// };
-
 export const syncTransactions = async ({ itemName }: { itemName: string }) => {
-  //  const summary = { added: 0, removed: 0, modified: 0 };
-
   const item = await ItemModel.findOne({ name: itemName }).exec();
   const accounts = await AccountModel.find();
 
@@ -114,7 +78,7 @@ export const syncTransactions = async ({ itemName }: { itemName: string }) => {
   await Promise.all(
     transactionData.modified.map(async (txnObj) => {
       const account = accounts.find(
-        (acc) => acc._id.toString() === txnObj.account_id
+        (acc) => acc.accountId === txnObj.account_id
       );
       const transactionId = txnObj.transaction_id;
       const amount = Math.abs(txnObj.amount);
@@ -183,6 +147,8 @@ export const syncTransactions = async ({ itemName }: { itemName: string }) => {
           // Save the updated transaction
           await existingTxn.save();
           console.log(`Updated existing transaction: ${transactionId}`);
+        } else {
+          console.log(`Transaction ${transactionId} not found for update.`);
         }
       }
     })
@@ -190,11 +156,15 @@ export const syncTransactions = async ({ itemName }: { itemName: string }) => {
 
   await Promise.all(
     transactionData.removed.map(async (txnObj) => {
+      const account = accounts.find(
+        (acc) => acc.accountId === txnObj.account_id
+      );
+
       const removedTxn = await TransactionModel.findOne({
         transactionId: txnObj.transaction_id,
       }).exec();
 
-      if (removedTxn) {
+      if (account && removedTxn) {
         removedTxn.isRemoved = true;
         await removedTxn.save();
       }
@@ -204,7 +174,7 @@ export const syncTransactions = async ({ itemName }: { itemName: string }) => {
   // Save our most recent cursor
   item.transactionCursor = transactionData.nextCursor;
   await item.save();
-  console.log(`Updated cursor for ${itemName}: ${item.transactionCursor}`);
+  console.log(`Transaction Data Updated Successfully`);
 };
 
 const fetchNewSyncData = async ({
@@ -260,7 +230,6 @@ const fetchNewSyncData = async ({
     } while (keepGoing === true);
 
     console.log("Transaction Synced Successfully");
-    console.log(`Your final Cursor: ${allData.nextCursor}`);
     return allData;
   } catch (error) {
     console.error("Error while fetching data:", error);
