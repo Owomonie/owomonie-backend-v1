@@ -4,6 +4,7 @@ import { handleExchangePlaidPublicToken } from "../../controllers/plaid-banks/ex
 import {
   handleGetUserAccounts,
   handleGetUserBanks,
+  handleGetUserTransaction,
 } from "../../controllers/plaid-banks/get-user-bank-info";
 
 const plaid = Router();
@@ -11,6 +12,7 @@ const plaid = Router();
 plaid.get("/get-link-token", handleGeneratePlaidLinkToken);
 plaid.get("/get-user-banks", handleGetUserBanks);
 plaid.get("/get-user-accounts", handleGetUserAccounts);
+plaid.get("/get-user-transactions", handleGetUserTransaction);
 plaid.post("/exchange-public-token", handleExchangePlaidPublicToken);
 
 export default plaid;

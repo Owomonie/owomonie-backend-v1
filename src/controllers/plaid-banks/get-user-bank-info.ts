@@ -70,10 +70,6 @@ export const handleGetUserAccounts = async (
         path: "items",
         populate: {
           path: "accounts",
-          //   populate: {
-          //     path: "transactions",
-          //     model: "Transaction",
-          //   },
         },
       })
       .exec();
@@ -105,6 +101,71 @@ export const handleGetUserAccounts = async (
     res.status(200).json({
       success: true,
       data: accountData,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: "Server Error" });
+  }
+};
+
+export const handleGetUserTransaction = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    //@ts-ignore
+    const userId = req.user.userId;
+
+    const user = await UserModel.findById(userId)
+      .populate({
+        path: "items",
+        populate: {
+          path: "accounts",
+          populate: {
+            path: "transactions",
+          },
+        },
+      })
+      .exec();
+
+    if (!user) {
+      res.status(404).json({ success: false, message: "User Not Found" });
+      return;
+    }
+
+    if (user.items?.length <= 0) {
+      res.status(404).json({
+        success: false,
+        message: "No Banks Availiable for this user",
+      });
+      return;
+    }
+
+    const transactionData = user.items.flatMap((item) =>
+      item.accounts.flatMap((account) =>
+        account.transactions.map((txn) => ({
+          id: txn._id,
+          category: txn.category,
+          amount: txn.amount,
+          date: txn.dateTime ?? txn.date,
+          categoryUri: txn.categoryLogo,
+          bankName: item.formatName,
+          type: txn.type,
+          createdAt: txn.createdAt,
+        }))
+      )
+    );
+
+    if (transactionData.length === 0) {
+      res
+        .status(404)
+        .json({ success: false, message: "No transactions found" });
+      return;
+    }
+
+    res.status(200).json({
+      success: true,
+      data: transactionData,
     });
   } catch (error) {
     console.log(error);

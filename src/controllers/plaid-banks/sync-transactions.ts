@@ -43,7 +43,7 @@ export const syncTransactions = async ({ itemName }: { itemName: string }) => {
         }).exec();
 
         if (!existingTxn) {
-          await TransactionModel.create({
+          const newTxn = await TransactionModel.create({
             transactionId,
             user: item.user,
             account: account._id,
@@ -70,7 +70,17 @@ export const syncTransactions = async ({ itemName }: { itemName: string }) => {
             dateTime: txnObj.authorized_datetime ?? txnObj.datetime,
             location: txnObj.location,
           });
+
           console.log(`Added new transaction: ${transactionId}`);
+
+          await AccountModel.updateOne(
+            { accountId: account.accountId, user: account.user },
+            {
+              $addToSet: {
+                transactions: newTxn._id,
+              },
+            }
+          );
         } else {
           console.log(`Transaction ${transactionId} already exists.`);
         }

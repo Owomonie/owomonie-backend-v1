@@ -32,7 +32,7 @@ plaidWebhookApp.post(
           console.log(`Can't handle webhook product ${product}`);
           break;
       }
-      res.json({ status: "New Update Received", success: true });
+      res.json({ status: "New Update Received from Plaid", success: true });
     } catch (error) {
       next(error);
     }
