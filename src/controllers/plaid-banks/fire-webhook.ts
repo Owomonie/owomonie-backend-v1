@@ -6,7 +6,7 @@ import {
   WebhookType,
 } from "plaid";
 import ItemModel from "../../models/plaid/item";
-import { plaidClient } from "../../config/plaid";
+import { plaidClient, PLAID_WEBHOOK_URL } from "../../config/plaid";
 
 export const handleFireTestWebhookSyncTxn = async (
   req: Request,
@@ -32,6 +32,11 @@ export const handleFireTestWebhookSyncTxn = async (
       res.status(400).json({ success: false, message: "Bank Not Found" });
       return;
     }
+
+    await plaidClient.itemWebhookUpdate({
+      access_token: item.accessToken,
+      webhook: PLAID_WEBHOOK_URL,
+    });
 
     const fireWebhookResponse = await plaidClient.sandboxItemFireWebhook({
       access_token: item.accessToken,

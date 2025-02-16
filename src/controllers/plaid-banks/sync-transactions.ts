@@ -6,7 +6,10 @@ import AccountModel from "../../models/plaid/account";
 import { removeUnderScore } from "../../utils/remove-underscores";
 
 export const syncTransactions = async ({ itemName }: { itemName: string }) => {
-  const item = await ItemModel.findOne({ name: itemName }).exec();
+  const item = await ItemModel.findOne({
+    $or: [{ name: itemName }, { itemId: itemName }],
+  }).exec();
+
   const accounts = await AccountModel.find();
 
   if (!item) {

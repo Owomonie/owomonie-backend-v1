@@ -9,7 +9,7 @@ export function handleTxnWebhook({
 }) {
   switch (code) {
     case "SYNC_UPDATES_AVAILABLE":
-      syncTransactions(requestBody.item_id);
+      syncTransactions({ itemName: requestBody.item_id });
       break;
 
     default:
