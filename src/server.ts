@@ -30,6 +30,7 @@ import notificationByAdmin from "./routes/admin/notification";
 import logoutRouter from "./routes/users/logout";
 import savePushToken from "./routes/users/save-push-token";
 import adminPlaidBankRouter from "./routes/admin/plaid-bank";
+import { getPlaidWebhookServer } from "./webhook/plaid/plaid-webhook-server";
 
 dotenv.config();
 
@@ -79,3 +80,5 @@ mongoose.set("strictQuery", false);
 mongoose.connection.once("open", () => {
   app.listen(port, () => console.log(`Server running on port ${port}`));
 });
+
+getPlaidWebhookServer();

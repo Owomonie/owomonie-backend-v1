@@ -642,3 +642,13 @@
 20250215	13:33:07	f810c792-65fa-41a0-88a1-8075a5ccb571	POST	undefined	/plaid/exchange-public-token
 20250215	13:33:22	5e35ebab-5eeb-49b1-a40a-ef3873ee4909	GET	undefined	/plaid/get-user-banks
 20250215	13:33:22	a0053db1-db64-4e48-8c1a-3627c5e176ac	GET	undefined	/plaid/get-user-accounts
+20250215	15:18:06	7723797e-62f3-4559-b7a9-54cd9eabf8de	GET	undefined	/plaid/get-user-accounts
+20250215	15:19:56	02ce2f32-9b90-4a9a-be18-8e38f4e42674	POST	undefined	/login
+20250215	15:20:14	cf730935-0ba3-4c7b-9074-a94c94098a56	POST	undefined	/admin-plaid/fire-test-webhook
+20250215	15:20:55	2fc8b562-4be7-4ad3-8aa0-51172e494e6d	POST	undefined	/admin-plaid/fire-test-webhook
+20250215	15:24:31	563c6263-7b47-4a0c-b828-8ffede1e0b81	POST	undefined	/admin-plaid/fire-test-webhook
+20250215	15:27:38	0ef3b78e-883e-46c7-997d-494dd0e79f6d	POST	undefined	/admin-plaid/fire-test-webhook
+20250215	15:31:21	640e9e62-4cb6-4cfd-978e-ab0c59c204ce	POST	undefined	/admin-plaid/fire-test-webhook/sync-transaction
+20250215	15:34:35	8dfe82ea-7b14-4b13-a19a-ab6423225e3d	POST	undefined	/admin-plaid/fire-test-webhook/sync-transaction
+20250215	15:44:27	4c99d2a1-f9eb-4e6d-9b93-cc30f35c4c73	POST	undefined	/admin-plaid/fire-test-webhook/sync-transaction
+20250215	15:44:46	876378d5-242b-46a6-b2b8-77c5d93d88ca	POST	undefined	/admin-plaid/fire-test-webhook/sync-transaction

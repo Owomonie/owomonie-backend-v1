@@ -1,6 +1,7 @@
 import { Request, Router } from "express";
 import multer, { FileFilterCallback, MulterError } from "multer";
 import { handleCreatePLaidBankLogo } from "../../controllers/plaid-banks/upload-bank-logo";
+import { handleFireTestWebhookSyncTxn } from "../../controllers/plaid-banks/fire-webhook";
 
 const adminPlaidBankRouter = Router();
 
@@ -35,6 +36,11 @@ adminPlaidBankRouter.post(
   "/create-plaid-logo",
   upload.single("plaid-bank-logo"),
   handleCreatePLaidBankLogo
+);
+
+adminPlaidBankRouter.post(
+  "/fire-test-webhook/sync-transaction",
+  handleFireTestWebhookSyncTxn
 );
 
 export default adminPlaidBankRouter;
