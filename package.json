@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "description": "Owomonie Backend",
   "main": "dist/server.js",
+  "plaid": "dist/webhook/plaid/plaid-webhook-server.js",
   "scripts": {
     "dev": "ts-node-dev src/server.ts",
+    "plaid-dev": "ts-node-dev src/webhook/plaid/plaid-webhook-server.ts",
     "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "plaid-start": "node dist/webhook/plaid/plaid-webhook-server.js"
   },
   "author": "Yommex",
   "license": "ISC",

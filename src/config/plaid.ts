@@ -6,11 +6,11 @@ import {
   CountryCode,
 } from "plaid";
 
-const PLAID_ENV = process.env.PLAID_ENV!.toLowerCase();
+const PLAID_ENV = process.env.PLAID_ENV!?.toLowerCase();
 
-const COUNTRY_CODES = process.env.PLAID_COUNTRY_CODES!.split(",");
+const COUNTRY_CODES = process.env.PLAID_COUNTRY_CODES!?.split(",");
 
-const PRODUCTS = process.env.PLAID_PRODUCTS!.split(",");
+const PRODUCTS = process.env.PLAID_PRODUCTS!?.split(",");
 
 export const PLAID_PRODUCTS: Products[] = PRODUCTS as Products[];
 
