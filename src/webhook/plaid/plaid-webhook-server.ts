@@ -3,8 +3,12 @@ import dotenv from "dotenv";
 import { handleItemWebhook } from "./item";
 import { handleTxnWebhook } from "./transaction";
 import { errorHandler } from "./errorHandler";
+import { connectDB } from "../../config";
+import mongoose from "mongoose";
 
 dotenv.config();
+
+connectDB();
 
 const plaidWebhookPort = process.env.PLAID_WEBHOOK_PORT!;
 
@@ -41,10 +45,8 @@ plaidWebhookApp.post(
 
 plaidWebhookApp.use(errorHandler);
 
-const plaidWebhookServer = plaidWebhookApp.listen(plaidWebhookPort, () =>
+plaidWebhookApp.listen(plaidWebhookPort, () =>
   console.log(`Plaid Webhook Server running on port ${plaidWebhookPort}`)
 );
 
-export const getPlaidWebhookServer = function () {
-  return plaidWebhookServer;
-};
+mongoose.set("strictQuery", false);

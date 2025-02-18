@@ -7,9 +7,7 @@
   "scripts": {
     "dev": "ts-node-dev src/server.ts",
     "plaid-dev": "ts-node-dev src/webhook/plaid/plaid-webhook-server.ts",
-    "build": "tsc",
-    "start": "node dist/server.js",
-    "plaid-start": "node dist/webhook/plaid/plaid-webhook-server.js"
+    "build": "tsc"
   },
   "author": "Yommex",
   "license": "ISC",
