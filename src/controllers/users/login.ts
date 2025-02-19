@@ -98,6 +98,7 @@ export const handleLogin = async (
       data: foundUser.loginToken,
     });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ success: false, message: "Server Error" });
   }
 };

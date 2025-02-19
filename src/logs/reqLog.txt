@@ -1222,3 +1222,11 @@
 20250219	07:49:18	8841a982-40f3-4507-b3a4-c789c27ea698	GET	undefined	/plaid/get-user-accounts
 20250219	07:49:21	540b853d-0232-4d5c-9234-ec16d3f4fc12	GET	undefined	/plaid/get-user-transactions
 20250219	07:49:23	8a268b68-7e62-444c-81d8-45167c12c9bf	POST	undefined	/save-push-token
+20250219	08:58:57	4d9ae6b9-59f6-44a7-af78-b84c706794b1	GET	http://localhost:5173	/get-user-details
+20250219	08:58:58	f6d40c74-bb49-4137-a958-d88601bf550a	GET	http://localhost:5173	/get-user-details
+20250219	11:24:59	65cfe176-c479-4ad1-b928-bff430328e7c	POST	http://localhost:5173	/login
+20250219	11:25:32	48677a8c-5cab-4790-9685-1840725848df	POST	http://localhost:5173	/login
+20250219	11:31:33	6094618c-74e2-4730-af6e-5deb05e5233f	POST	http://localhost:5173	/login
+20250219	11:31:42	f06255a2-0f36-4f36-9800-6c22e2841882	POST	http://localhost:5173	/login
+20250219	11:40:43	59ef7333-7f07-481e-b8be-3acf913d451f	POST	http://localhost:5173	/login
+20250219	11:41:18	691d1dd8-bb95-473e-8c4a-9d1112e0d231	POST	http://localhost:5173	/login
