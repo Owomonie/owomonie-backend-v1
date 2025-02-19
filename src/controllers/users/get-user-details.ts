@@ -17,17 +17,23 @@ export const handleGetUserDetails = async (
       return;
     }
 
-    const {
-      password,
-      resettingPassword,
-      isAdmin,
-      otp,
-      otpExpiry,
-      __v,
-      ...userResponse
-    } = user.toObject();
+    const userData = {
+      id: user._id,
+      email: user.email,
+      status: user.status,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      userName: user.userName,
+      ageRange: user.ageRange,
+      avatar: user.avatar,
+      gender: user.gender,
+      incomeRange: user.incomeRange,
+      workType: user.workType,
+      createdAt: user.createdAt,
+      lastLogin: user.lastLogin,
+    };
 
-    res.status(200).json({ success: true, user: userResponse });
+    res.status(200).json({ success: true, data: userData });
   } catch (error) {
     res.status(500).json({ success: false, message: "Server Error" });
   }
