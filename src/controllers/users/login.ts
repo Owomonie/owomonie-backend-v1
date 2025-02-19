@@ -95,8 +95,7 @@ export const handleLogin = async (
     res.status(200).json({
       success: true,
       message: "Login Sucesssful",
-      token: foundUser.loginToken,
-      isAdmin: foundUser.isAdmin,
+      data: foundUser.loginToken,
     });
   } catch (error) {
     res.status(500).json({ success: false, message: "Server Error" });

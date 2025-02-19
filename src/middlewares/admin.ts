@@ -1,18 +1,40 @@
 import { Request, Response, NextFunction } from "express";
+import UserModel from "../models/user";
 
-const authenticateAdmin = (
+const authenticateAdmin = async (
   req: Request,
   res: Response,
   next: NextFunction
-): void => {
-  //@ts-ignore
-  if (req.user && req.user.isAdmin) {
-    return next();
-  }
+): Promise<void> => {
+  try {
+    //@ts-ignore
+    const userId = req.user.userId;
 
-  res
-    .status(403)
-    .json({ success: false, message: "Access Denied: Admins Only" });
+    if (!userId) {
+      res.status(400).json({ success: false, message: "User ID not found" });
+      return;
+    }
+
+    const user = await UserModel.findById(userId);
+
+    if (!user) {
+      res.status(404).json({ success: false, message: "User not found" });
+      return;
+    }
+
+    if (!user?.isAdmin) {
+      res
+        .status(403)
+        .json({ success: false, message: "Access Denied: Admins Only" });
+      return;
+    }
+
+    next();
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Server Error" });
+    return;
+  }
 };
 
 export default authenticateAdmin;

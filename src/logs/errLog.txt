@@ -2,3 +2,4 @@
 20250207	18:35:31	bf80d88e-32a1-4a9c-92e5-9d0350a3d3c8	SyntaxError: Unexpected token 'o', ..."cToken": [object Obj"... is not valid JSON
 20250207	18:37:15	7586d9a0-af6c-419f-8bb8-472efadfab2d	SyntaxError: Unexpected token 'o', ..."cToken": [object Obj"... is not valid JSON
 20250207	18:45:56	7d446c39-c291-4aa9-b41b-5754ad384f9b	SyntaxError: Unexpected token 'o', ..."cToken": [object Obj"... is not valid JSON
+20250219	06:51:09	922ebcf2-d523-4134-b3bb-836e4e872b85	Error: Not allowed by CORS
