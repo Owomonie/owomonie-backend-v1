@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 
 import UserModel from "../../models/user";
-import { syncTransactions } from "./sync-transactions";
 
 export const handleGetUserBanks = async (
   req: Request,
@@ -142,11 +141,11 @@ export const handleGetUserTransaction = async (
       return;
     }
 
-    await Promise.all(
-      user.items.map(async (bank) => {
-        await syncTransactions({ itemName: bank.name });
-      })
-    );
+    // await Promise.all(
+    //   user.items.map(async (bank) => {
+    //     await syncTransactions({ itemName: bank.name });
+    //   })
+    // );
 
     const transactionData = user.items.flatMap((item) =>
       item.accounts.flatMap((account) =>
