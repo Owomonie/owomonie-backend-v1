@@ -7,6 +7,7 @@ import {
   ForgetVerificationMessage,
   ResetPasswordMessage,
 } from "../../email/users/forget";
+import { sendPushNotification } from "../../expo-push-notification/notification";
 
 const isPasswordValid = (password: string): boolean => {
   const passwordRegex =
@@ -153,6 +154,14 @@ export const handleResetPassword = async (
     foundUser.otpExpiry = undefined;
 
     await foundUser.save();
+
+    if (foundUser.pushToken) {
+      await sendPushNotification({
+        body: `Hello ${foundUser.firstName}, Your password has been changed`,
+        pushTokens: [foundUser.pushToken],
+        title: "Password Reset Successful",
+      });
+    }
 
     ResetPasswordMessage({ email, userName: foundUser.userName });
 
