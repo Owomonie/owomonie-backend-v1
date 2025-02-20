@@ -7,8 +7,7 @@ import { sendPushNotification } from "../../expo-push-notification/notification"
 
 const JWT_SECRET = process.env.JWT_SECRET!;
 
-// const ADMIN_ROUTE = process.env.ADMIN_ROUTE!;
-const ADMIN_ROUTE = process.env.ADMIN_ROUTE_TWO!;
+const ADMIN_ROUTE = process.env.ADMIN_ROUTE!;
 
 const JWT_EXPIRATION = "3h";
 
