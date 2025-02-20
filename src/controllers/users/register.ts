@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 
 import UserModel from "../../models/user";
 import RegistrationSuccessfulMessage from "../../email/users/registered";
+import { sendPushNotification } from "../../expo-push-notification/notification";
 
 const isPasswordValid = (password: string): boolean => {
   const passwordRegex =
@@ -14,7 +15,8 @@ export const handleRegisterNewUser = async (
   req: Request,
   res: Response
 ): Promise<void> => {
-  const { email, password, userName, firstName, lastName } = req.body;
+  const { email, password, userName, firstName, lastName, pushToken } =
+    req.body;
 
   if (!email || !password || !userName || !firstName || !lastName) {
     res
@@ -76,6 +78,14 @@ export const handleRegisterNewUser = async (
       email,
       userName,
     });
+
+    if (pushToken !== null || !pushToken) {
+      await sendPushNotification({
+        body: "Please Kindly Login to Continue.",
+        pushTokens: [pushToken],
+        title: "Account Registered Successfully",
+      });
+    }
 
     res.status(200).json({
       success: true,

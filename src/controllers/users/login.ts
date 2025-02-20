@@ -7,8 +7,8 @@ import { sendPushNotification } from "../../expo-push-notification/notification"
 
 const JWT_SECRET = process.env.JWT_SECRET!;
 
-const ADMIN_ROUTE_ONE = process.env.ADMIN_ROUTE_ONE!;
-const ADMIN_ROUTE_TWO = process.env.ADMIN_ROUTE_TWO!;
+// const ADMIN_ROUTE = process.env.ADMIN_ROUTE!;
+const ADMIN_ROUTE = process.env.ADMIN_ROUTE_TWO!;
 
 const JWT_EXPIRATION = "3h";
 
@@ -35,7 +35,7 @@ export const handleLogin = async (
       return;
     }
 
-    if (origin === ADMIN_ROUTE_ONE && !foundUser.isAdmin) {
+    if (origin === ADMIN_ROUTE && !foundUser.isAdmin) {
       res.status(401).json({ success: false, message: "Unauthorized" });
       return;
     }
