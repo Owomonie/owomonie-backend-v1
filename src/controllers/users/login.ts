@@ -37,65 +37,69 @@ export const handleLogin = async (
     if (origin === ADMIN_ROUTE && !foundUser.isAdmin) {
       res.status(401).json({ success: false, message: "Unauthorized" });
       return;
-    }
+    } else {
+      if (pushToken) {
+        foundUser.pushToken = pushToken;
+      }
+      await foundUser.save();
 
-    if (pushToken) {
-      foundUser.pushToken = pushToken;
-    }
-    await foundUser.save();
+      if (foundUser.status === -1) {
+        if (foundUser.pushToken) {
+          await sendPushNotification({
+            body: `Hello ${foundUser.firstName}, Your account has been suspended. Kindly reach out to customer care service`,
+            pushTokens: [foundUser.pushToken],
+            title: "Login Failed",
+          });
+          res
+            .status(401)
+            .json({ success: false, message: "Account Suspended" });
+        }
+        return;
+      }
+      const isMatch =
+        foundUser.password &&
+        (await bcrypt.compare(password, foundUser.password));
 
-    if (foundUser.status === -1) {
+      if (!isMatch) {
+        res.status(400).json({ success: false, message: "Invalid Password" });
+        return;
+      }
+
+      foundUser.lastLogin = new Date();
+      await foundUser.save();
+
+      const formattedLastLogin = foundUser.lastLogin.toLocaleString();
+
+      // Create a token payload
+      const payload = {
+        userId: foundUser._id,
+        email: foundUser.email,
+        isAdmin: foundUser.isAdmin,
+      };
+
+      // Generate a JWT token
+      const token = jwt.sign(payload, JWT_SECRET, {
+        expiresIn: JWT_EXPIRATION,
+      });
+
+      foundUser.loginToken = token;
+      await foundUser.save();
+
+      // If the user has a push token, send the push notification
       if (foundUser.pushToken) {
         await sendPushNotification({
-          body: `Hello ${foundUser.firstName}, Your account has been suspended. Kindly reach out to customer care service`,
+          body: `Hello ${foundUser.firstName}, Your account was logged in at ${formattedLastLogin}`,
           pushTokens: [foundUser.pushToken],
-          title: "Login Failed",
+          title: "Login Successful",
         });
-        res.status(401).json({ success: false, message: "Account Suspended" });
       }
-      return;
-    }
-    const isMatch =
-      foundUser.password &&
-      (await bcrypt.compare(password, foundUser.password));
 
-    if (!isMatch) {
-      res.status(400).json({ success: false, message: "Invalid Password" });
-      return;
-    }
-
-    foundUser.lastLogin = new Date();
-    await foundUser.save();
-
-    const formattedLastLogin = foundUser.lastLogin.toLocaleString();
-
-    // Create a token payload
-    const payload = {
-      userId: foundUser._id,
-      email: foundUser.email,
-      isAdmin: foundUser.isAdmin,
-    };
-
-    // Generate a JWT token
-    const token = jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRATION });
-
-    foundUser.loginToken = token;
-    await foundUser.save();
-
-    // If the user has a push token, send the push notification
-    if (foundUser.pushToken) {
-      await sendPushNotification({
-        body: `Hello ${foundUser.firstName}, Your account was logged in at ${formattedLastLogin}`,
-        pushTokens: [foundUser.pushToken],
-        title: "Login Successful",
+      res.status(200).json({
+        success: true,
+        message: "Login Sucesssful",
+        data: foundUser.loginToken,
       });
     }
-
-    res.status(200).json({
-      success: true,
-      message: "Login Sucesssful",
-      data: foundUser.loginToken,
-    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, message: "Server Error" });
