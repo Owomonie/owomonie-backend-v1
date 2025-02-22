@@ -123,7 +123,6 @@ export const handleGetUserTransaction = async (
           path: "accounts",
           populate: {
             path: "transactions",
-            options: { sort: { dateTime: -1 }, limit: 50 },
           },
         },
       })
