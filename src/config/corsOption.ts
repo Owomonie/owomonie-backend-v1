@@ -1,6 +1,6 @@
 const ADMIN_ROUTE = process.env.ADMIN_ROUTE!;
 
-const allowedOrigins = [ADMIN_ROUTE, "http://localhost:5173"];
+const allowedOrigins = [ADMIN_ROUTE];
 
 import { CorsOptions } from "cors";
 
