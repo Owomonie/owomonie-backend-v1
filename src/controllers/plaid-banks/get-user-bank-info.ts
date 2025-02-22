@@ -171,7 +171,7 @@ export const handleGetUserTransaction = async (
 
     const recentTransactions = transactionData
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-      .slice(0, 200);
+      .slice(0, 20);
 
     res.status(200).json({
       success: true,
