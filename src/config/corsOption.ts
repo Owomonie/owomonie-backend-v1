@@ -1,8 +1,6 @@
-const allowedOrigins = [
-  // "http://localhost:8081",
-  "https://owomonie-admin-v1.vercel.app",
-  "http://localhost:5173",
-];
+const ADMIN_ROUTE = process.env.ADMIN_ROUTE!;
+
+const allowedOrigins = [ADMIN_ROUTE, "http://localhost:5173"];
 
 import { CorsOptions } from "cors";
 
