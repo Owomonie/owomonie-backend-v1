@@ -123,6 +123,7 @@ export const handleGetUserTransaction = async (
           path: "accounts",
           populate: {
             path: "transactions",
+            options: { sort: { dateTime: -1 }, limit: 50 },
           },
         },
       })
@@ -171,7 +172,7 @@ export const handleGetUserTransaction = async (
 
     const recentTransactions = transactionData
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-      .slice(0, 20);
+      .slice(0, 50);
 
     res.status(200).json({
       success: true,
