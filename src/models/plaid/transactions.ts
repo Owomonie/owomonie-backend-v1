@@ -82,6 +82,8 @@ const transactionSchema: Schema<ITransaction> = new Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
+transactionSchema.index({ date: -1 });
+
 const TransactionModel = mongoose.model<ITransaction>(
   "Transaction",
   transactionSchema

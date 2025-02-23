@@ -115,6 +115,8 @@ export const handleGetUserTransaction = async (
   try {
     //@ts-ignore
     const userId = req.user.userId;
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 20;
 
     const user = await UserModel.findById(userId)
       .populate({
@@ -123,6 +125,9 @@ export const handleGetUserTransaction = async (
           path: "accounts",
           populate: {
             path: "transactions",
+            options: {
+              sort: { date: -1 },
+            },
           },
         },
       })
@@ -140,12 +145,6 @@ export const handleGetUserTransaction = async (
       });
       return;
     }
-
-    // await Promise.all(
-    //   user.items.map(async (bank) => {
-    //     await syncTransactions({ itemName: bank.name });
-    //   })
-    // );
 
     const transactionData = user.items.flatMap((item) =>
       item.accounts.flatMap((account) =>
@@ -169,16 +168,29 @@ export const handleGetUserTransaction = async (
       return;
     }
 
-    const recentTransactions = transactionData
-      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-      .slice(0, 50);
+    const startIndex = (page - 1) * limit;
+    const endIndex = startIndex + limit;
+    const paginatedTransactionData = transactionData.slice(
+      startIndex,
+      endIndex
+    );
+
+    if (paginatedTransactionData.length === 0) {
+      res.status(404).json({
+        success: false,
+        message: "No transactions found on this page",
+      });
+      return;
+    }
 
     res.status(200).json({
       success: true,
-      data: recentTransactions,
+      data: paginatedTransactionData,
+      // currentPage: page,
+      // totalPages: Math.ceil(transactionData.length / limit),
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(500).json({ success: false, message: "Server Error" });
   }
 };
