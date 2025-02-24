@@ -187,7 +187,7 @@ export const handleGetUserTransaction = async (
       success: true,
       data: paginatedTransactionData,
       // currentPage: page,
-      // totalPages: Math.ceil(transactionData.length / limit),
+      totalPages: Math.ceil(transactionData.length / limit),
     });
   } catch (error) {
     console.error(error);
