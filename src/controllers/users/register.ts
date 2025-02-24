@@ -7,7 +7,7 @@ import { sendPushNotification } from "../../expo-push-notification/notification"
 
 const isPasswordValid = (password: string): boolean => {
   const passwordRegex =
-    /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{8,}$/;
+    /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>_])[A-Za-z\d!@#$%^&*(),.?":{}|<>_]{8,}$/;
   return passwordRegex.test(password);
 };
 
@@ -35,7 +35,9 @@ export const handleRegisterNewUser = async (
   }
 
   if (!isPasswordValid(password)) {
-    res.status(400).json({ success: false, message: "Invalid Password" });
+    res
+      .status(400)
+      .json({ success: false, message: "Password Requirement Not Met" });
     return;
   }
 

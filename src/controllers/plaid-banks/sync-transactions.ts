@@ -13,7 +13,7 @@ export const syncTransactions = async ({ itemName }: { itemName: string }) => {
   const accounts = await AccountModel.find();
 
   if (!item) {
-    console.log("Bank does not exist in our database");
+    console.log("Bank does not exist in the database");
     return;
   }
 
