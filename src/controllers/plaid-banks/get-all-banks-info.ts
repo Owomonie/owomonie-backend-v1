@@ -74,18 +74,18 @@ export const handleGetAllTransactions = async (
     }
 
     const transactionData = transactions.map(async (txn) => {
-      // const user = await UserModel.findById(txn.user);
-      // const bank = await ItemModel.findById(txn.item);
+      const user = await UserModel.findById(txn.user);
+      const bank = await ItemModel.findById(txn.item);
 
       return {
         id: txn._id,
-        // firstName: user?.firstName,
-        // lastName: user?.lastName,
+        firstName: user?.firstName,
+        lastName: user?.lastName,
         date: txn.dateTime ?? txn.date,
         type: txn.type,
         amount: txn.amount,
         category: txn.category,
-        // bank: bank?.name,
+        bank: bank?.name,
       };
     });
 
@@ -94,7 +94,7 @@ export const handleGetAllTransactions = async (
       success: true,
       data: {
         totalPages: Math.ceil(totalTransactions / pageLimit),
-        transactions: transactionData,
+        transactions,
         // currentPage: pageNumber,
         // pageSize: pageLimit,
         // totalRecords: totalTransactions,
