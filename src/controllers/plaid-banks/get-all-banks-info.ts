@@ -73,7 +73,7 @@ export const handleGetAllTransactions = async (
       return;
     }
 
-    const transactionData = transactions.map(async (txn) => {
+    const transactionDataPromises = transactions.map(async (txn) => {
       const user = await UserModel.findById(txn.user);
       const bank = await ItemModel.findById(txn.item);
 
@@ -88,6 +88,8 @@ export const handleGetAllTransactions = async (
         bank: bank?.name,
       };
     });
+
+    const transactionData = await Promise.all(transactionDataPromises);
 
     // Return the paginated transactions and metadata
     res.status(200).json({
