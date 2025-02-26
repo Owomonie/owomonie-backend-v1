@@ -1,6 +1,7 @@
 const ADMIN_ROUTE = process.env.ADMIN_ROUTE!;
+const DEV_ADMIN_ROUTE = process.env.DEV_ADMIN_ROUTE!;
 
-const allowedOrigins = [ADMIN_ROUTE];
+const allowedOrigins = [ADMIN_ROUTE, DEV_ADMIN_ROUTE];
 
 import { CorsOptions } from "cors";
 
