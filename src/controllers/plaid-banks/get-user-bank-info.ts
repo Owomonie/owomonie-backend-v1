@@ -146,6 +146,14 @@ export const handleGetUserTransaction = async (
       return;
     }
 
+    if (page < 1 || limit < 1) {
+      res.status(400).json({
+        success: false,
+        message: "Page number and limit must be greater than 0",
+      });
+      return;
+    }
+
     const transactionData = user.items.flatMap((item) =>
       item.accounts.flatMap((account) =>
         account.transactions.map((txn) => ({
@@ -178,7 +186,8 @@ export const handleGetUserTransaction = async (
     if (paginatedTransactionData.length === 0) {
       res.status(404).json({
         success: false,
-        message: "No transactions found on this page",
+        totalPages: Math.ceil(transactionData.length / limit),
+        message: `No transactions found on page ${page}`,
       });
       return;
     }
@@ -186,8 +195,8 @@ export const handleGetUserTransaction = async (
     res.status(200).json({
       success: true,
       data: {
-        transactions: paginatedTransactionData,
         totalPages: Math.ceil(transactionData.length / limit),
+        transactions: paginatedTransactionData,
         // currentPage: page,
       },
     });
