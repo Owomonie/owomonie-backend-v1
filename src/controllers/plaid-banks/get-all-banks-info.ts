@@ -85,7 +85,7 @@ export const handleGetAllTransactions = async (
         type: txn.type,
         amount: txn.amount,
         category: txn.category,
-        bank: bank?.name,
+        bank: bank?.formatName ?? bank?.name,
       };
     });
 
