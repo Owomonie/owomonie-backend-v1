@@ -91,6 +91,12 @@ export const handleGetAllTransactions = async (
 
     const transactionData = await Promise.all(transactionDataPromises);
 
+    transactionData.sort((a, b) => {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      return dateB.getTime() - dateA.getTime(); // Descending order
+    });
+
     // Return the paginated transactions and metadata
     res.status(200).json({
       success: true,
