@@ -65,15 +65,6 @@ export const handleGetAllTransactions = async (
       },
     });
 
-    if (transactions.length === 0) {
-      res.status(404).json({
-        success: false,
-        totalPages: Math.ceil(totalTransactions / pageLimit),
-        message: `No transactions found on page ${page}`,
-      });
-      return;
-    }
-
     const transactionDataPromises = transactions.map(async (txn) => {
       const user = await UserModel.findById(txn.user);
       const bank = await ItemModel.findById(txn.item);
