@@ -80,6 +80,7 @@ export const handleGetAllTransactions = async (
 
       return {
         id: txn._id,
+        userId: txn.user,
         firstName: user?.firstName,
         lastName: user?.lastName,
         date: txn.dateTime ?? txn.date,
