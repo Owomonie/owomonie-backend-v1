@@ -9,15 +9,16 @@ export const handleGetAllTransactions = async (
 ): Promise<void> => {
   try {
     // Get startDate, endDate, page, and limit from query parameters
-    const { startDate, endDate, page = 1, limit = 20 } = req.query;
+    let { startDate, endDate, page = 1, limit = 20 } = req.query;
 
     // Ensure both startDate and endDate are provided
+    const currentDate = new Date();
     if (!startDate || !endDate) {
-      res.status(400).json({
-        success: false,
-        message: "Start date and end date are required",
-      });
-      return;
+      const start = new Date(currentDate);
+      start.setMonth(currentDate.getMonth() - 1);
+      const end = new Date(currentDate);
+      startDate = start.toISOString().split("T")[0];
+      endDate = end.toISOString().split("T")[0];
     }
 
     // Parse the start and end date strings into Date objects
