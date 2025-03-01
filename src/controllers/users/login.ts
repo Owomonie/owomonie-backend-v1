@@ -40,6 +40,8 @@ export const handleLogin = async (
     } else {
       if (pushToken) {
         foundUser.pushToken = pushToken;
+      } else {
+        foundUser.pushToken = undefined;
       }
       await foundUser.save();
 

@@ -96,9 +96,6 @@ export const handleGetAllTransactions = async (
       data: {
         totalPages: Math.ceil(totalTransactions / pageLimit),
         transactions: transactionData,
-        // currentPage: pageNumber,
-        // pageSize: pageLimit,
-        // totalRecords: totalTransactions,
       },
     });
   } catch (error) {

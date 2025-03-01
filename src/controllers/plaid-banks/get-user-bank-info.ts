@@ -1,6 +1,44 @@
 import { Request, Response } from "express";
-
+import { parseISO } from "date-fns";
+import mongoose, { ObjectId } from "mongoose";
 import UserModel from "../../models/user";
+interface TransactionData {
+  id: mongoose.Types.ObjectId;
+  amount: number;
+  date: string;
+  categoryUri: string;
+  bankName: string;
+  type: string;
+  createdAt: Date;
+  category?: string;
+}
+
+const groupTransactionsByDate = (
+  transactions: TransactionData[]
+): { transactions: TransactionData[]; date: Date }[] => {
+  const grouped = new Map<
+    string,
+    { transactions: TransactionData[]; date: Date }
+  >();
+
+  transactions.forEach((transaction) => {
+    const date = parseISO(transaction.date);
+    const formattedDate = date.toISOString().split("T")[0];
+
+    if (!grouped.has(formattedDate)) {
+      grouped.set(formattedDate, {
+        date,
+        transactions: [],
+      });
+    }
+
+    grouped.get(formattedDate)!.transactions.push(transaction);
+  });
+
+  return Array.from(grouped.values()).sort(
+    (a, b) => b.date.getTime() - a.date.getTime()
+  );
+};
 
 export const handleGetUserBanks = async (
   req: Request,
@@ -154,7 +192,7 @@ export const handleGetUserTransaction = async (
       return;
     }
 
-    const transactionData = user.items.flatMap((item) =>
+    const transactionData: TransactionData[] = user.items.flatMap((item) =>
       item.accounts.flatMap((account) =>
         account.transactions.map((txn) => ({
           id: txn._id,
@@ -169,35 +207,20 @@ export const handleGetUserTransaction = async (
       )
     );
 
-    if (transactionData.length === 0) {
-      res
-        .status(404)
-        .json({ success: false, message: "No transactions found" });
-      return;
-    }
+    const groupedTransactions = groupTransactionsByDate(transactionData);
 
     const startIndex = (page - 1) * limit;
     const endIndex = startIndex + limit;
-    const paginatedTransactionData = transactionData.slice(
+    const paginatedGroupedTransactions = groupedTransactions.slice(
       startIndex,
       endIndex
     );
 
-    if (paginatedTransactionData.length === 0) {
-      res.status(404).json({
-        success: false,
-        totalPages: Math.ceil(transactionData.length / limit),
-        message: `No transactions found on page ${page}`,
-      });
-      return;
-    }
-
     res.status(200).json({
       success: true,
       data: {
-        totalPages: Math.ceil(transactionData.length / limit),
-        transactions: paginatedTransactionData,
-        // currentPage: page,
+        totalPages: Math.ceil(groupedTransactions.length / limit),
+        transactions: paginatedGroupedTransactions,
       },
     });
   } catch (error) {

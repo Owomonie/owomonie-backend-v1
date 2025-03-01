@@ -1541,3 +1541,12 @@
 20250226	10:06:42	53d33441-694f-4ff6-bf3a-221127d1f80c	GET	undefined	/admin-plaid/get-all-transactions?startDate=2025-02-24&endDate=2025-02-26&page=2
 20250226	10:15:19	c48fd97b-630d-47d3-8ea9-ec1deb9db668	GET	undefined	/admin-plaid/get-all-transactions?startDate=2025-02-24&endDate=2025-02-26&page=2
 20250226	11:28:26	8d137afd-ad60-49a4-8957-a13f91bef74d	GET	undefined	/admin-plaid/get-all-transactions?startDate=2025-02-24&endDate=2025-02-26&page=2
+20250301	14:51:14	d142e984-eced-437d-94ea-b09e8cfa3ff7	GET	undefined	/admin-plaid/get-all-transactions?startDate=2025-02-24&endDate=2025-02-26&page=1
+20250301	15:04:06	ae9634d2-5afc-472a-bb20-6317d474bb16	GET	undefined	/plaid/get-user-transactions?page=2&limit=10
+20250301	15:10:09	1fe04816-b273-487c-aca1-cc2973df686c	GET	undefined	/plaid/get-user-transactions?page=2&limit=10
+20250301	15:12:35	6ab5ba7d-c7d1-461b-bdc1-260c3c45d32a	GET	undefined	/plaid/get-user-transactions
+20250301	15:13:08	cd7c79be-0d3a-431b-8d81-090e33cc9e1e	GET	undefined	/plaid/get-user-transactions
+20250301	15:13:24	54f0d741-abe8-4a26-adab-7f45178ffc5d	GET	undefined	/plaid/get-user-transactions
+20250301	15:17:32	9c549482-436c-48e9-8bc2-3ab38abcc27d	GET	undefined	/plaid/get-user-transactions
+20250301	15:18:50	66da8380-f5d1-4324-acdc-0328238653ab	GET	undefined	/plaid/get-user-transactions
+20250301	15:19:35	8035660b-54b2-47c8-ae43-8cc26c25bdc0	GET	undefined	/plaid/get-user-transactions
