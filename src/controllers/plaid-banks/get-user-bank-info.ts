@@ -211,9 +211,11 @@ export const handleGetUserTransaction = async (
 
     const startIndex = (page - 1) * limit;
     const endIndex = startIndex + limit;
-    const paginatedGroupedTransactions = groupedTransactions.slice(
-      startIndex,
-      endIndex
+
+    const paginatedTransactions = transactionData.slice(startIndex, endIndex);
+
+    const paginatedGroupedTransactions = groupTransactionsByDate(
+      paginatedTransactions
     );
 
     res.status(200).json({
