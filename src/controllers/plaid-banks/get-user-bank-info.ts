@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { parseISO } from "date-fns";
-import mongoose, { ObjectId } from "mongoose";
+import mongoose from "mongoose";
 import UserModel from "../../models/user";
 interface TransactionData {
   id: mongoose.Types.ObjectId;
@@ -222,7 +222,7 @@ export const handleGetUserTransaction = async (
       success: true,
       data: {
         totalPages: Math.ceil(groupedTransactions.length / limit),
-        transactions: paginatedGroupedTransactions,
+        transactionsData: paginatedGroupedTransactions,
       },
     });
   } catch (error) {
