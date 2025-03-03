@@ -239,8 +239,7 @@ export const handleGetUserTransaction = async (
     res.status(200).json({
       success: true,
       data: {
-        totalPages: Math.ceil(transactionData.length / limit),
-        totalPages2: totalPages,
+        totalPages,
         transactionsData: paginatedGroupedTransactions,
       },
     });
