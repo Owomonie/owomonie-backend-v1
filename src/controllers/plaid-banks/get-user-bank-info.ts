@@ -209,19 +209,38 @@ export const handleGetUserTransaction = async (
 
     const groupedTransactions = groupTransactionsByDate(transactionData);
 
-    const startIndex = (page - 1) * limit;
-    const endIndex = startIndex + limit;
+    let paginatedGroupedTransactions: {
+      transactions: TransactionData[];
+      date: Date;
+    }[] = [];
+    let transactionCount = 0;
+    let pageIndex = page - 1;
 
-    const paginatedTransactions = transactionData.slice(startIndex, endIndex);
+    while (transactionCount < limit && pageIndex < groupedTransactions.length) {
+      const group = groupedTransactions[pageIndex];
+      const groupLength = group.transactions.length;
 
-    const paginatedGroupedTransactions = groupTransactionsByDate(
-      paginatedTransactions
-    );
+      if (transactionCount + groupLength <= limit) {
+        paginatedGroupedTransactions.push(group);
+        transactionCount += groupLength;
+      } else {
+        const remaining = limit - transactionCount;
+        paginatedGroupedTransactions.push({
+          date: group.date,
+          transactions: group.transactions.slice(0, remaining),
+        });
+        transactionCount = limit;
+      }
+      pageIndex++;
+    }
+
+    const totalPages = Math.ceil(groupedTransactions.length / (limit / 20));
 
     res.status(200).json({
       success: true,
       data: {
         totalPages: Math.ceil(transactionData.length / limit),
+        totalPages2: totalPages,
         transactionsData: paginatedGroupedTransactions,
       },
     });
