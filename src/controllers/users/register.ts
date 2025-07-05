@@ -82,11 +82,11 @@ export const handleRegisterNewUser = async (
     });
 
     if (pushToken !== null || !pushToken) {
-      await sendPushNotification({
-        body: "Please Kindly Login to Continue.",
-        pushTokens: [pushToken],
-        title: "Account Registered Successfully",
-      });
+      // await sendPushNotification({
+      //   body: "Please Kindly Login to Continue.",
+      //   pushTokens: [pushToken],
+      //   title: "Account Registered Successfully",
+      // });
     }
 
     res.status(200).json({

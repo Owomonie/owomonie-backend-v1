@@ -156,11 +156,11 @@ export const handleResetPassword = async (
     await foundUser.save();
 
     if (foundUser.pushToken) {
-      await sendPushNotification({
-        body: `Hello ${foundUser.firstName}, Your password has been changed`,
-        pushTokens: [foundUser.pushToken],
-        title: "Password Reset Successful",
-      });
+      // await sendPushNotification({
+      //   body: `Hello ${foundUser.firstName}, Your password has been changed`,
+      //   pushTokens: [foundUser.pushToken],
+      //   title: "Password Reset Successful",
+      // });
     }
 
     ResetPasswordMessage({ email, userName: foundUser.userName });

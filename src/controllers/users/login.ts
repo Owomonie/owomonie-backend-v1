@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 import UserModel from "../../models/user";
-import { sendPushNotification } from "../../expo-push-notification/notification";
+// import { sendPushNotification } from "../../expo-push-notification/notification";
 
 const JWT_SECRET = process.env.JWT_SECRET!;
 
@@ -47,11 +47,11 @@ export const handleLogin = async (
 
       if (foundUser.status === -1) {
         if (foundUser.pushToken) {
-          await sendPushNotification({
-            body: `Hello ${foundUser.firstName}, Your account has been suspended. Kindly reach out to customer care service`,
-            pushTokens: [foundUser.pushToken],
-            title: "Login Failed",
-          });
+          // await sendPushNotification({
+          //   body: `Hello ${foundUser.firstName}, Your account has been suspended. Kindly reach out to customer care service`,
+          //   pushTokens: [foundUser.pushToken],
+          //   title: "Login Failed",
+          // });
           res
             .status(401)
             .json({ success: false, message: "Account Suspended" });
@@ -89,11 +89,11 @@ export const handleLogin = async (
 
       // If the user has a push token, send the push notification
       if (foundUser.pushToken) {
-        await sendPushNotification({
-          body: `Hello ${foundUser.firstName}, Your account was logged in at ${formattedLastLogin}`,
-          pushTokens: [foundUser.pushToken],
-          title: "Login Successful",
-        });
+        // await sendPushNotification({
+        //   body: `Hello ${foundUser.firstName}, Your account was logged in at ${formattedLastLogin}`,
+        //   pushTokens: [foundUser.pushToken],
+        //   title: "Login Successful",
+        // });
       }
 
       res.status(200).json({

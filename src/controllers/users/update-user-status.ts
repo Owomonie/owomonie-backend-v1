@@ -61,12 +61,12 @@ export const handleUserStatusUpdate = async (
 
       if (status === 1) {
         if (foundUser.pushToken) {
-          await sendPushNotification({
-            body: `Hello ${foundUser.firstName}, Your account has been reactivated sucessfully`,
-            pushTokens: [foundUser.pushToken],
-            title: "Reactivation Successful",
-            subTitle: "User",
-          });
+          // await sendPushNotification({
+          //   body: `Hello ${foundUser.firstName}, Your account has been reactivated sucessfully`,
+          //   pushTokens: [foundUser.pushToken],
+          //   title: "Reactivation Successful",
+          //   subTitle: "User",
+          // });
         }
         GeneralMessage({
           email: foundUser.email,
@@ -77,12 +77,10 @@ export const handleUserStatusUpdate = async (
       }
     }
 
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: `User ${foundUser.userName} Status Updated Successfully`,
-      });
+    res.status(200).json({
+      success: true,
+      message: `User ${foundUser.userName} Status Updated Successfully`,
+    });
   } catch (error) {
     res.status(500).json({ success: false, message: "Server Error" });
   }

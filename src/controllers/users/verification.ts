@@ -122,11 +122,11 @@ export const handleOTPRequest = async (
     await OtpModel.deleteOne({ sessionId });
 
     if (pushToken !== null || !pushToken) {
-      await sendPushNotification({
-        body: "You can now register to use full features of app",
-        pushTokens: [pushToken],
-        title: "Verification Successful",
-      });
+      // await sendPushNotification({
+      //   body: "You can now register to use full features of app",
+      //   pushTokens: [pushToken],
+      //   title: "Verification Successful",
+      // });
     }
 
     res.status(201).json({
